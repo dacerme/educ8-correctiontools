@@ -3,56 +3,60 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
-
-	<!-- blueprint CSS framework -->
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
-	<!--[if lt IE 8]>
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
-	<![endif]-->
-
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
+	<link rel="Shortcut Icon" href="favicon.ico"> 
+	<link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ct/style.css" type="text/css" media="all" />
+	
+	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-1.7.1.min.js" type="text/javascript"></script>
+	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.jcarousel.pack.js" type="text/javascript"></script>
+	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-func.js" type="text/javascript"></script>
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
 <body>
+	
+<!-- Header -->
+<div id="header">
+	<div class="shell">
+		
+		<!-- Logo -->
+		<h1 id="logo">Correction Tools<p>educ8</p></h1>
+		<!-- End Logo -->
+		
+		<!-- Navigation -->
+		<div id="navigation">
+			<ul>
+			    <li><a href="#">Home</a></li>
+			    <li><a href="#">About</a></li>
+			    <li><a href="#">Services</a></li>
+			    <li><a href="#">Contact</a></li>
+			</ul>
+		</div>
+		<!-- End Navigation -->
+		
+	</div>
+</div>
+<!-- End Header -->
 
-<div class="container" id="page">
+<?php echo $content; ?>
 
-	<div id="header">
-		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
-	</div><!-- header -->
-
-	<div id="mainmenu">
-		<?php $this->widget('zii.widgets.CMenu',array(
-			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>'Contact', 'url'=>array('/site/contact')),
-				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-			),
-		)); ?>
-	</div><!-- mainmenu -->
-	<?php if(isset($this->breadcrumbs)):?>
-		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-			'links'=>$this->breadcrumbs,
-		)); ?><!-- breadcrumbs -->
-	<?php endif?>
-
-	<?php echo $content; ?>
-
-	<div class="clear"></div>
-
-	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
-		All Rights Reserved.<br/>
-		<?php echo Yii::powered(); ?>
-	</div><!-- footer -->
-
-</div><!-- page -->
+<!-- Footer -->
+<div id="footer">
+	<div class="shell">
+		<p class="left">
+			<a href="#">Home</a>
+			<span>|</span>
+			<a href="#">About</a>
+			<span>|</span>
+			<a href="#">Services</a>
+			<span>|</span>
+			<a href="#">Contact</a>
+		</p>
+		<p class="right">&copy; 2010 Company Name. 
+			Design by <a href="http://chocotemplates.com" target="_blank" title="The Sweetest CSS Templates WorldWide">Chocotemplates.com</a></p>
+	</div>
+</div>
+<!-- End Footer -->
 
 </body>
 </html>
