@@ -1,3 +1,5 @@
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.jcarousel.pack.js" type="text/javascript"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-func.js" type="text/javascript"></script>
 <!-- Slider -->
 <div id="slider">
 	<div class="shell">
@@ -10,11 +12,11 @@
 				    <li>
 				    	<div class="slide-bg">
 					    	<div class="slide-image">
-					    		<a href="#"><img src="images/ct/writing.png" alt="" /></a>
+					    		<a href="#"><img src="/images/ct/writing.png" alt="" style="margin-left:40px"/></a>
 					    	</div>
 					    	<div class="slide-info">
-					    		<h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </h2>
-					    		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras accumsan interdum nulla. Nunc venenatis tincidunt sem, nec tempus purus congue viverra. Nullam venenatis tempus libero, quis venenatis metus rhoncus et. Nulla rutrum luctus ante, quis varius justo aliquam sit amet.</p>
+					    		<h2>Writing Correction</h2>
+					    		<p>We can help you correct almost all exam composition. Professional teachers, close to the exam scoring rules,to help you rapidly increase your level of composition.</p>
 					    		<a href="#" class="notext learn-button">Learn More</a>
 					    		
 					    	</div>
@@ -27,11 +29,11 @@
 				    <li>
 				    	<div class="slide-bg">
 					    	<div class="slide-image">
-					    		<a href="#"><img src="images/ct/oral.png" alt="" /></a>
+					    		<a href="#"><img src="/images/ct/oral.png" alt="" /></a>
 					    	</div>
 					    	<div class="slide-info">
-					    		<h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </h2>
-					    		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras accumsan interdum nulla. Nunc venenatis tincidunt sem, nec tempus purus congue viverra. Nullam venenatis tempus libero, quis venenatis metus rhoncus et. Nulla rutrum luctus ante, quis varius justo aliquam sit amet.</p>
+					    		<h2>Oral Correction </h2>
+					    		<p>We can help you correct almost all exam oral test. Professional teachers, close to the exam scoring rules,to help you rapidly increase your level of oral test.</p>
 					    		<a href="#" class="notext learn-button">Learn More</a>
 					    		
 					    	</div>
@@ -65,34 +67,40 @@
 			
 			<!-- Col -->
 			<div class="col">
-				<h3 class="ico ico1">Lorem ipsum dolor</h3>
-
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras accumsan interdum nulla. Nunc venenatis tincidunt sem, nec tempus purus congue viverra.</p>
-				<p>Nullam venenatis tempus libero, quis venenatis metus rhoncus et. Nulla rutrum luctus ante, quis varius justo aliquam sit amet.</p>
-				<p class="more"><a href="#">Lorem Impsum</a></p>
+				<h3 class="ico ico1">News</h3>
+				<ul class="index_news">
+					<li><p>2012.3.20 Oral correction coming soon.</p></li>
+					<li><p>2012.3.20 Writing correction coming on 2012.3.24.</p></li>
+					<li><p>2012.3.18 Website's framework updated.</p></li>
+					<li><p>2012.3.17 Website's UI updated.</p></li>
+					<li><p>2012.3.17 Correction tools webstie rebuild.</p></li>
+				</ul>
+				<p class="more"><a href="#">more...</a></p>
 				
 			</div>
 			<!-- End Col -->
 			
 			<!-- Col -->
 			<div class="col">
-				<h3 class="ico ico2">Tempus libero varius</h3>
-
-				<p>Deugiat tincidunt ac a tortor. Sed nec elit quis tellus dictum pharetra. Mauris nec ante eu mauris consequat ultricies nec vitae purus. Proin nec urna odio. </p>
-				<p>Mauris sapien justo, commodo non mollis sed, dictum sit amet dolor. Maecenas purus lacus, viverra a sollicitudin eget, posuere vel diam.</p>
-				<p class="more"><a href="#">Lorem Impsum</a></p>
-				
+				<h3 class="ico ico2">Latest writing corrections</h3>
+				<ul class="index_news">
+					<li><p>IELTS Task 1 by mousetrapj.</p></li>
+					<li><p>TOEFL Intergrated by mousetrpaj.</p></li>
+					<li><p>TOEFL Independent by mousetrpaj.</p></li>
+					<li><p>GRE Issue by ariel.</p></li>
+					<li><p>GRE Argument by ariel.</p></li>
+				</ul>
 			</div>
 			<!-- End Col -->
 			
 			<!-- Col -->
 			<div class="col col-last">
-				<h3 class="ico ico3">Ipsum in faucibus sed</h3>
-
-				<p>Quisque mi eros, sodales non semper at, egestas eget libero. Nullam pharetra aliquam molestie. Proin cursus lorem a elit ornare iaculis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-				<p>Nunc ultricies massa id nibh ultricies in pharetra sapien sagittis. Donec imperdiet eros vitae purus interdum suscipit eu faucibus libero.</p>
-				<p class="more"><a href="#">Lorem Impsum</a></p>
-				
+				<h3 class="ico ico2">Latest oral corrections</h3>
+				<ul class="index_news">
+					<li><p>IELTS Speaking Test 1 by mousetrapj.</p></li>
+					<li><p>TOEFL Custom subject by mousetrpaj.</p></li>
+					<li><p>TOEFL Speaking Tset by mousetrpaj.</p></li>
+				</ul>	
 			</div>
 			<!-- End Col -->
 			
