@@ -44,6 +44,8 @@ h1 p{font-size:20px;color:#7b7b7b;font-style:italic}
 #navigation ul li a:hover,
 #navigation ul li a.active { background-position:right 0; color:#fff;}
 
+#navigation ul li b{height:30px;line-height:30px;color:#0188C9;cursor:pointer}
+
 #slider { height:390px; background:url(../../images/ct/slider.gif);}
 
 
@@ -65,7 +67,7 @@ h1 p{font-size:20px;color:#7b7b7b;font-style:italic}
 .slider-nav a.prev{ left:0; background:url(../../images/ct/prev.gif); }
 .slider-nav a.next{ left:937px; background:url(../../images/ct/next.gif); }
 
-.learn-button { width:165px; height:37px; background:url(../../images/ct/learn-button.gif); }
+.learn-button { width:165px; height:71px; background:url(../../images/ct/learn-button.gif); }
 
 #main { width:100%; background:url(../../images/ct/main.gif) repeat-x 0 0; padding:45px 0 40px 0;}
 
@@ -89,3 +91,7 @@ p.more a{ background:url(../../images/ct/more.gif) no-repeat 0 center; padding-l
 #footer span{ color:#cfcfcf; padding:0 5px;}
 #footer a{ color:#5c5c5c; text-decoration: none;}
 #footer a:hover{ color:#0184c4;}
+
+.index_news { list-style-type: none; }
+
+#signwindow { padding:10px 50px;}
