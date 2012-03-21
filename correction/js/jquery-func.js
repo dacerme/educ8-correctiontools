@@ -40,13 +40,18 @@ function _init_carousel(carousel) {
 	$('#signsubmit').click(function(){
 		var username = $('#username').val();
 		var password = $('#password').val();
-		var remeberme = ($('#remeberme').is(':checked'))?1:0;
+		var rememberme = ($('#rememberme').is(':checked'))?1:0;
 		$.ajax({
-			url:"/index.php/site/login",
-			data:"username="+username+"&password="+password+"&remeberme="+remeberme,
+			url:"/correction/index.php/site/login",
+			data:"username="+username+"&password="+password+"&rememberMe="+rememberme,
 			success:function(data){
-				
+				if(data == "login success"){
+					window.location.reload();
+				}
 			}
 		});
+	});
+	$('#signout').click(function(){
+		window.location.href="/correction/index.php/site/logout";
 	});
 };
