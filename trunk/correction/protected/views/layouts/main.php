@@ -26,7 +26,7 @@
 		<!-- Navigation -->
 		<div id="navigation">
 			<ul>
-			    <li><a href="/index.php/site/index">Home</a></li>
+			    <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/site/index">Home</a></li>
 			    <li><a href="#">iCorrection</a></li>
 			    <li><a href="#">Services</a></li>
 			    <?
@@ -36,7 +36,7 @@
 			    <?
 					}else{
 			    ?>
-			    <li>Welcome,<?echo Yii::app()->user->name?><b> / Sign Out</b></li>
+			    <li>Welcome,<?echo Yii::app()->user->name?><b id="signout"> / Sign Out</b></li>
 			    <?
 			    	}
 			    ?>
@@ -70,7 +70,7 @@
 <div id="signwindow" title="Sign In">
 			<p>Username:</p><input type="text" id="username"  style="width:200px" placeholder="username or email..."/><br/>
 			<p>Password:</p><input type="password" id="password" style="width:200px"/><br/><br/>
-			<input type="checkbox" id="remeberme" /><label for="remeberme">  Remeber Me</label>
+			<input type="checkbox" id="rememberme" /><label for="rememberme">  Remember Me</label>
 			<br/><br/>
 			<input type="button" value="Sign In" id="signsubmit"/>
 			<input type="button" value="Cancel" id="cancelsign" style="margin-left:50px;"/>

@@ -12,7 +12,7 @@
 				    <li>
 				    	<div class="slide-bg">
 					    	<div class="slide-image">
-					    		<a href="#"><img src="/images/ct/writing.png" alt="" style="margin-left:40px"/></a>
+					    		<a href="#"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/ct/writing.png" alt="" style="margin-left:40px"/></a>
 					    	</div>
 					    	<div class="slide-info">
 					    		<h2>Writing Correction</h2>
@@ -29,7 +29,7 @@
 				    <li>
 				    	<div class="slide-bg">
 					    	<div class="slide-image">
-					    		<a href="#"><img src="/images/ct/oral.png" alt="" /></a>
+					    		<a href="#"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/ct/oral.png" alt="" /></a>
 					    	</div>
 					    	<div class="slide-info">
 					    		<h2>Oral Correction </h2>
