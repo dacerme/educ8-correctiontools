@@ -32,7 +32,7 @@ h2, h3 { font-family: "Trebuchet MS", Arial, sans-serif;}
 h1#logo { font-size:25px; line-height:28px; width:300px; height:64px; float:left; font-family:"Arial";padding-top:10px;text-indent:75px;background:url(../../images/ct/logo.png) 1px 0px no-repeat}
 h1 p{font-size:20px;color:#7b7b7b;font-style:italic}
 
-.shell { width:980px; margin:0 auto; }
+.shell { width:980px; margin:0 auto;}
 
 #header { height:74px; background:url(../../images/ct/header.gif);}
 
