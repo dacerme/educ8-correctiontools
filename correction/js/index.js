@@ -6,18 +6,6 @@ $( document ).ready( function(){
 		buttonNextHTML: null,
 		buttonPrevHTML: null
 	});
-});
-
-function _init_carousel(carousel) {
-	$('.slider-nav .next').bind('click', function() {
-		carousel.next();
-		return false;
-	});
-	
-	$('.slider-nav .prev').bind('click', function() {
-		carousel.prev();
-		return false;
-	});
 	
 	$.fx.speeds._default = 500;
 	$( "#signwindow" ).dialog({
@@ -51,7 +39,19 @@ function _init_carousel(carousel) {
 			}
 		});
 	});
-	$('#signout').click(function(){
+	$('#signout').click(function(){f
 		window.location.href="/correction/index.php/site/logout";
+	});
+});
+
+function _init_carousel(carousel) {
+	$('.slider-nav .next').bind('click', function() {
+		carousel.next();
+		return false;
+	});
+	
+	$('.slider-nav .prev').bind('click', function() {
+		carousel.prev();
+		return false;
 	});
 };
