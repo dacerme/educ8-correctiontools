@@ -1,5 +1,3 @@
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.jcarousel.pack.js" type="text/javascript"></script>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-func.js" type="text/javascript"></script>
 <!-- Slider -->
 <div id="slider">
 	<div class="shell">

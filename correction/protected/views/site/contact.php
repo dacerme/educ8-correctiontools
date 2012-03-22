@@ -1,10 +1,6 @@
-<?php
-$this->pageTitle=Yii::app()->name . ' - Contact Us';
-$this->breadcrumbs=array(
-	'Contact',
-);
-?>
 
+<div id="main">
+	<div class="shell">
 <h1>Contact Us</h1>
 
 <?php if(Yii::app()->user->hasFlash('contact')): ?>
@@ -79,3 +75,5 @@ If you have business inquiries or other questions, please fill out the following
 </div><!-- form -->
 
 <?php endif; ?>
+</div>
+</div>
