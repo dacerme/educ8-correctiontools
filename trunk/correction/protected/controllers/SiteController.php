@@ -29,6 +29,8 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
+		Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/jquery.jcarousel.pack.js');
+    	Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/index.js');
 		$this->render('index');
 	}
 
@@ -57,8 +59,8 @@ class SiteController extends Controller
 			$model->attributes=$_POST['ContactForm'];
 			if($model->validate())
 			{
-				$headers="From: {$model->email}\r\nReply-To: {$model->email}";
-				mail(Yii::app()->params['adminEmail'],$model->subject,$model->body,$headers);
+				//$headers="From: {$model->email}\r\nReply-To: {$model->email}";
+				//mail(Yii::app()->params['adminEmail'],$model->subject,$model->body,$headers);
 				Yii::app()->user->setFlash('contact','Thank you for contacting us. We will respond to you as soon as possible.');
 				$this->refresh();
 			}
@@ -89,5 +91,12 @@ class SiteController extends Controller
 	{
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
+	}
+	
+	
+	public function actionIcorrection()
+	{
+		$model = new User;
+		$this->render('icorrection',array('model'=>$model));
 	}
 }
