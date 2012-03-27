@@ -12,5 +12,5 @@ CKEDITOR.editorConfig = function( config )
 	config.toolbar_Basic = [
 		['Bold','Italic','Underline','Strike','-','Link','Unlink','-','Font','FontSize','SpellChecker', 'Scayt']
 	];
-	config.resizable = false;
+	config.resize_enabled = false;
 };
