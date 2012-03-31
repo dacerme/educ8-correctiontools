@@ -136,7 +136,19 @@ $(function(){
 			} );
 			
 			CKEDITOR.replace( 'editor1', { extraPlugins : 'myplugin' } );
+			
+			
+			function insertTest(){
+				var editor = CKEDITOR.instances.editor1;
+				editor.insertHtml($('#test').val());
+			}
 		</script>
+
+		<textarea id="test" style="width:500px;height:300px;">
+			
+		</textarea>
+		<input type="button" onclick="insertTest()" value="Insert"/>
+
 		<div>
 			<span custom="advice:com;value:-0.1;" id="flow1">righthere<sup>COM</sup></span>
 		</div>
