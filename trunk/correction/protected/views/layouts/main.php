@@ -32,7 +32,7 @@
 			    <?
 			    	if(Yii::app()->user->isGuest){
 			    ?>
-			    <li><b id="signin">Sign In</b><b> / </b><b id="register">Register</b></li>
+			    <li><b id="signin">Sign In</b><b> / </b><b id="register">Sign Up</b></li>
 			    <?
 					}else{
 			    ?>
@@ -47,9 +47,7 @@
 	</div>
 </div>
 <!-- End Header -->
-
 <?php echo $content; ?>
-
 <!-- Footer -->
 <div id="footer">
 	<div class="shell">
@@ -74,7 +72,7 @@
 			<span id="error" style="color:red"></span>
 			<br/><br/>
 			<input type="button" value="Sign In" id="signsubmit"/>
-			<input type="button" value="Cancel" id="cancelsign" style="margin-left:50px;"/>
+			<input type="button" value="Cancel" id="cancelsign" style="margin-left:45px;"/>
 </div>
 
 
