@@ -1,3 +1,4 @@
+<?php $this->beginContent('//layouts/main'); ?>
 <script type="text/javascript">
 	$(function(){
 		$( "#menulist" ).accordion();
@@ -13,7 +14,6 @@
 		});
 	});
 </script>
-
 <div id="main">
 	<div class="shell">
 		<div id="sider">
@@ -32,12 +32,9 @@
 			
 		</div>
 		<div id="base">
-			<table>
-				<tr>
-					<td>Total Essays:</td><td>0</td>
-				</tr>
-			</table>
+			<?php echo $content; ?>
 		</div>
 		<div style="clear:both;"></div>
 	</div>
 </div>
+<?php $this->endContent(); ?>
