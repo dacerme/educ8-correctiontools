@@ -15,6 +15,13 @@
  * @property string $marktime
  * @property integer $cateid
  * @property integer $subcateid
+ *
+ * The followings are the available model relations:
+ * @property Category $cate
+ * @property Question $question
+ * @property Category $subcate
+ * @property User $u
+ * @property EssayMarked[] $essayMarkeds
  */
 class Essay extends CActiveRecord
 {
@@ -61,10 +68,11 @@ class Essay extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'user' => array(self::BELONGS_TO, 'User', 'uid'),
-			'question' => array(self::BELONGS_TO, 'Question', 'questionid'),
 			'cate' => array(self::BELONGS_TO, 'Category', 'cateid'),
+			'question' => array(self::BELONGS_TO, 'Question', 'questionid'),
 			'subcate' => array(self::BELONGS_TO, 'Category', 'subcateid'),
+			'u' => array(self::BELONGS_TO, 'User', 'uid'),
+			'essayMarkeds' => array(self::HAS_MANY, 'EssayMarked', 'e_id'),
 		);
 	}
 
