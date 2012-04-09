@@ -1,17 +1,10 @@
 <?php $this->beginContent('//layouts/main'); ?>
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ui.jqgrid.css" />
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/grid.locale-en.js" type="text/javascript"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.jqGrid.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	$(function(){
 		$( "#menulist" ).accordion();
-		$( "#selectable" ).selectable({
-			stop: function() {
-				$('.submenu',this).each(function() {
-					var index = $( "#selectable li" ).index(this);
-					switch(index){
-						case 1:window.location.href = "/essay/create";break;
-					}
-				});
-			}
-		});
 	});
 </script>
 <div id="main">
@@ -21,11 +14,11 @@
 				<h2><a href="#">Writing Correction</a></h2>
 				<div>
 					<ol id="selectable">
-						<li class="submenu">Create New</li>
-						<li class="submenu">All</li>
-						<li class="submenu">Not Rated</li>
-						<li class="submenu">Rated</li>
-						<li class="submenu">Draft</li>
+						<li class="submenu" onclick="window.location.href='/essay/create'">Create New</li>
+						<li class="submenu" onclick="window.location.href='/essay/list?type=all'">All</li>
+						<li class="submenu" onclick="window.location.href='/essay/list?type=not'">Not Rated</li>
+						<li class="submenu" onclick="window.location.href='/essay/list?type=rated'">Rated</li>
+						<li class="submenu" onclick="window.location.href='/essay/list?type=draft'">Draft</li>
 					</ol>
 				</div>
 			</div>
