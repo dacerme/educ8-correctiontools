@@ -36,7 +36,7 @@
 			    <?
 					}else{
 			    ?>
-			    <li>Welcome,<?echo Yii::app()->user->name?><b id="signout"> / Sign Out</b></li>
+			    <li>Welcome,<b style="color:#FF9900"><?echo Yii::app()->user->name?></b><b id="signout"> / Sign Out</b></li>
 			    <?
 			    	}
 			    ?>
@@ -72,7 +72,7 @@
 			<span id="error" style="color:red"></span>
 			<br/><br/>
 			<input type="button" value="Sign In" id="signsubmit"/>
-			<input type="button" value="Cancel" id="cancelsign" style="margin-left:45px;"/>
+			<input type="button" value="Cancel" id="cancelsign"/>
 </div>
 
 

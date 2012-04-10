@@ -41,10 +41,10 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('username,password,email','required'),
+			array('username','match','pattern'=>'/^[a-zA-Z0-9_]{4,16}$/u'),
 			array('gender, active', 'numerical', 'integerOnly'=>true),
-			array('username, country', 'length', 'max'=>20),
-			array('password', 'length', 'max'=>50),
-			array('email', 'length', 'max'=>100),
+			array('password', 'length', 'max'=>50, 'min'=>6),
+			array('email', 'email'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('uid, username, password, email, gender, country, active', 'safe', 'on'=>'search'),

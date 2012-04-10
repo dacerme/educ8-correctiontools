@@ -67,10 +67,10 @@ class UserController extends Controller
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['User']))
-		{
+		{	
 			$model->attributes=$_POST['User'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->uid));
+				$this->redirect(array('/site/icorrection'));
 		}
 
 		$this->render('create',array(
@@ -176,20 +176,48 @@ class UserController extends Controller
 	
 	public function actionRegister()
 	{
-		$model=new User;
+		$model=new RegisterForm;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['User']))
-		{
-			$model->attributes=$_POST['User'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->uid));
+		if(isset($_POST['RegisterForm']))
+		{	
+				$model->attributes=$_POST['RegisterForm'];
+				if($model->validate()){
+					if($this->_checkUser($_POST['RegisterForm'])){	
+						$newuser = new User;
+						$newuser->username = $_POST['RegisterForm']['username'];
+						$newuser->email = $_POST['RegisterForm']['email'];
+						$newuser->password=md5($_POST['RegisterForm']['password']);
+						if($newuser->save()){
+							$plus = new UserPlus;
+							$plus->uid = $model->uid;
+							$plus->groupid = 2;
+							if($plus->save()){
+								$_identity=new UserIdentity($model->username,$model->password);
+								$duration= 0;
+								Yii::app()->user->login($_identity,$duration);
+								$this->redirect(array('/site/icorrection'));
+							}
+						}
+					}else{
+						$model->addError('','Username/Email already exists');
+					}
+			}
 		}
-
 		$this->render('/site/register',array(
 			'model'=>$model,
 		));
+	}
+	
+	
+
+	private function _checkUser($post){
+		$user = User::model()->find('username=:username or email=:email',array(':username'=>$post['username'],':email'=>$post['email']));
+		if($user === null){
+			return true;
+		}else{
+			return false;
+		}
 	}
 }
