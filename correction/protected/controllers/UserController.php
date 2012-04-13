@@ -191,12 +191,19 @@ class UserController extends Controller
 						$newuser->password=md5($_POST['RegisterForm']['password']);
 						if($newuser->save()){
 							$plus = new UserPlus;
-							$plus->uid = $model->uid;
+							$plus->uid = $newuser->uid;
 							$plus->groupid = 2;
 							if($plus->save()){
 								$_identity=new UserIdentity($model->username,$model->password);
 								$duration= 0;
 								Yii::app()->user->login($_identity,$duration);
+								$userinfo=array(
+									'uid'=>$newuser->uid,
+									'username'=>$newuser->username,
+									'email'=>$newuser->email,
+									'group'=>$plus->groupid
+								);
+								Yii::app()->user->setState('userinfo',$userinfo);
 								$this->redirect(array('/site/icorrection'));
 							}
 						}

@@ -96,7 +96,11 @@ class SiteController extends Controller
 	
 	public function actionIcorrection()
 	{
-		$model = new User;
-		$this->render('icorrection',array('model'=>$model));
+		$userinfo = Yii::app()->user->getState('userinfo');
+		if($userinfo == null){
+			$this->redirect(Yii::app()->homeUrl);
+		}else{
+			$this->render('icorrection',array('userinfo'=>$userinfo));
+		}
 	}
 }

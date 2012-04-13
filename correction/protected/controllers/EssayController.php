@@ -27,7 +27,7 @@ class EssayController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','list'),
+				'actions'=>array('index','view','list','geteassy'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -72,9 +72,12 @@ class EssayController extends Controller
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
+		
+		$userinfo = Yii::app()->user->getState('userinfo');
 
 		$this->render('create',array(
 			'model'=>$model,
+			'userinfo'=>$userinfo,
 		));
 	}
 
