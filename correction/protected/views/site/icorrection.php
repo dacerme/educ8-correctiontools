@@ -10,6 +10,7 @@
 			<div id="menulist" style="width:100%;">
 				<h2><a href="#">Writing Correction</a></h2>
 				<div>
+					<?php if($userinfo['group'] != 3){?>
 					<ol id="selectable">
 						<li class="submenu" onclick="window.location.href='/essay/create'">Create New</li>
 						<li class="submenu" onclick="window.location.href='/essay/create'">All</li>
@@ -17,6 +18,14 @@
 						<li class="submenu" onclick="window.location.href='/essay/create'">Rated</li>
 						<li class="submenu" onclick="window.location.href='/essay/create'">Draft</li>
 					</ol>
+					<?}else{?>
+					<ol id="selectable">
+						<li class="submenu" onclick="window.location.href='/essaymark/create'">All</li>
+						<li class="submenu" onclick="window.location.href='/essaymark/create'">Not Rated</li>
+						<li class="submenu" onclick="window.location.href='/essaymark/create'">Rated</li>
+						<li class="submenu" onclick="window.location.href='/essaymark/create'">Draft</li>
+					</ol>	
+					<?}?>
 				</div>
 			</div>
 			
