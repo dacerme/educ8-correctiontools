@@ -21,8 +21,17 @@ class UserIdentity extends CUserIdentity
 		if($user === null){
 			$this->errorCode=self::ERROR_USERNAME_INVALID;
 		}
-		else
+		else{
+			$userplus = UserPlus::model()->find('uid=:uid',array(':uid'=>$user->uid));
+			$userinfo=array(
+				'uid'=>$user->uid,
+				'username'=>$user->username,
+				'email'=>$user->email,
+				'group'=>$userplus->groupid
+			);
+			Yii::app()->user->setState('userinfo',$userinfo);
 			$this->errorCode=self::ERROR_NONE;
+		}
 		return !$this->errorCode;
 	}
 }
