@@ -42,6 +42,10 @@
 		CKEDITOR.replace( 'essaycontent',{width:740,height:400});
 	</script>
 	
+	<div class="row">
+		<?php echo $form->hiddenField($model,'uid',array('value'=>$userinfo['uid']))?>
+	</div>
+	
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
