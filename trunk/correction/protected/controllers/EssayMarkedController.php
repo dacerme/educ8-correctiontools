@@ -6,7 +6,7 @@ class EssayMarkedController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
+	public $layout='//layouts/student';
 
 	/**
 	 * @return array action filters
@@ -27,7 +27,7 @@ class EssayMarkedController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','list','geteassy','mark'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -172,5 +172,22 @@ class EssayMarkedController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+	
+	public function actionList(){
+		$type = isset($_GET['type'])?$_GET['type']:"all";
+		$this->render('list',array('type'=>$type));
+	}
+
+	public function actionGetEssay(){
+
+		
+	}
+	
+	public function actionMark(){
+		$type=$_GET['type'];
+		$essayid = $_GET['eassyid'];
+		$model = new EssayMarked;
+		$this->render('mark',array('model'=>$model));
 	}
 }
