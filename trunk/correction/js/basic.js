@@ -28,7 +28,7 @@ $( document ).ready( function(){
 			return;
 		}
 		$.ajax({
-			url:"/site/login",
+			url:baseurl+"/site/login",
 			data:"username="+username+"&password="+password+"&rememberMe="+rememberme,
 			success:function(data){
 				if(data == "login success"){
@@ -41,10 +41,10 @@ $( document ).ready( function(){
 	});
 	
 	$('#signout').click(function(){
-		window.location.href="/site/logout";
+		window.location.href=baseurl+"/site/logout";
 	});
 	
 	$('#register').click(function(){
-		window.location.href="/user/register";
+		window.location.href=baseurl+"/user/register";
 	});
 });
