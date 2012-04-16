@@ -1,7 +1,7 @@
 <script type="text/javascript">
 $(function(){
 	$("#list").jqGrid({
-		url:'/essay/getessay',
+		url:baseurl+'/essay/getessay',
 		datatype: "json",
 		mtype:"post",
 		postData:{'getdata':true,'type':'all'},

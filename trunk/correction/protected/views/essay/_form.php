@@ -37,7 +37,7 @@
 		<?php echo $form->textArea($model,'content',array('id'=>"essaycontent"))?>
 		<?php echo $form->error($model,'content'); ?>
 	</div>
-	<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript">
 		CKEDITOR.replace( 'essaycontent',{width:740,height:400});
 	</script>

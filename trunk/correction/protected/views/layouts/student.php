@@ -14,11 +14,11 @@
 				<h2><a href="#">Writing Correction</a></h2>
 				<div>
 					<ol id="selectable">
-						<li class="submenu" onclick="window.location.href='/essay/create'">Create New</li>
-						<li class="submenu" onclick="window.location.href='/essay/list?type=all'">All</li>
-						<li class="submenu" onclick="window.location.href='/essay/list?type=not'">Not Rated</li>
-						<li class="submenu" onclick="window.location.href='/essay/list?type=rated'">Rated</li>
-						<li class="submenu" onclick="window.location.href='/essay/list?type=draft'">Draft</li>
+						<li class="submenu" onclick="window.location.href=baseurl+'/essay/create'">Create New</li>
+						<li class="submenu" onclick="window.location.href=baseurl+'/essay/list?type=all'">All</li>
+						<li class="submenu" onclick="window.location.href=baseurl+'/essay/list?type=not'">Not Rated</li>
+						<li class="submenu" onclick="window.location.href=baseurl+'/essay/list?type=rated'">Rated</li>
+						<li class="submenu" onclick="window.location.href=baseurl+'/essay/list?type=draft'">Draft</li>
 					</ol>
 				</div>
 			</div>

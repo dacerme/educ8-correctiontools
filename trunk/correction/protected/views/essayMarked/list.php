@@ -1,7 +1,7 @@
 <script type="text/javascript">
 $(function(){
 	$("#list").jqGrid({
-		url:'/essaymarked/getessay',
+		url:baseurl+'/essaymarked/getessay',
 		datatype: "json",
 		mtype:"post",
 		postData:{'getdata':true,'type':'all'},
@@ -15,6 +15,7 @@ $(function(){
 	   		{name:'status',index:'tax', width:80, align:"right",sorttype:"float"}
 	   	],
 	   	rowNum:15,
+	   	sortname:'submittime',
 	   	caption:'Essay List',
 	   	rowList:[10,20,30],
 	   	pager: '#listpager'
