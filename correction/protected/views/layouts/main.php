@@ -10,6 +10,9 @@
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-1.7.1.min.js" type="text/javascript"></script>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/basic.js" type="text/javascript"></script>
+	<script>
+		var baseurl="<?php print Yii::app()->request->baseUrl;?>";
+	</script>
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 

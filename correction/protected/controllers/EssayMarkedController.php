@@ -27,7 +27,7 @@ class EssayMarkedController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','list','geteassy','mark'),
+				'actions'=>array('index','view','list','getessay','mark'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -180,8 +180,15 @@ class EssayMarkedController extends Controller
 	}
 
 	public function actionGetEssay(){
-
-		
+		$page = $_POST['page']; 
+		$limit = $_POST['rows']; 
+		$sidx = $_POST['sidx']; 
+		$sord = $_POST['sord']; 
+		$type = isset($_POST['type'])?$_POST['type']:"all";
+		switch($type){
+			case "all":
+				$count = Essay::model()->count()
+		}
 	}
 	
 	public function actionMark(){

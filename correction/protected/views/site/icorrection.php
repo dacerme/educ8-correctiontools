@@ -12,18 +12,18 @@
 				<div>
 					<?php if($userinfo['group'] != 3){?>
 					<ol id="selectable">
-						<li class="submenu" onclick="window.location.href='/essay/create'">Create New</li>
-						<li class="submenu" onclick="window.location.href='/essay/create'">All</li>
-						<li class="submenu" onclick="window.location.href='/essay/create'">Not Rated</li>
-						<li class="submenu" onclick="window.location.href='/essay/create'">Rated</li>
-						<li class="submenu" onclick="window.location.href='/essay/create'">Draft</li>
+						<li class="submenu" onclick="window.location.href=baseurl+'/essay/create'">Create New</li>
+						<li class="submenu" onclick="window.location.href=baseurl+'/essay/list?type=all'">All</li>
+						<li class="submenu" onclick="window.location.href=baseurl+'/essay/list?type=not'">Not Rated</li>
+						<li class="submenu" onclick="window.location.href=baseurl+'/essay/list?type=rated'">Rated</li>
+						<li class="submenu" onclick="window.location.href=baseurl+'/essay/list?type=draft'">Draft</li>
 					</ol>
 					<?}else{?>
 					<ol id="selectable">
-						<li class="submenu" onclick="window.location.href='/essaymark/create'">All</li>
-						<li class="submenu" onclick="window.location.href='/essaymark/create'">Not Rated</li>
-						<li class="submenu" onclick="window.location.href='/essaymark/create'">Rated</li>
-						<li class="submenu" onclick="window.location.href='/essaymark/create'">Draft</li>
+						<li class="submenu" onclick="window.location.href=baseurl+'/essaymarked/list?type=all'">All</li>
+						<li class="submenu" onclick="window.location.href=baseurl+'/essaymarked/list?type=not'">Not Rated</li>
+						<li class="submenu" onclick="window.location.href=baseurl+'/essaymarked/list?type=rated'">Rated</li>
+						<li class="submenu" onclick="window.location.href=baseurl+'/essaymarked/list?type=draft'">Draft</li>
 					</ol>	
 					<?}?>
 				</div>
