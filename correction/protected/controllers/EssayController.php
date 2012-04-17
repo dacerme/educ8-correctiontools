@@ -69,6 +69,8 @@ class EssayController extends Controller
 		if(isset($_POST['Essay']))
 		{
 			$model->attributes=$_POST['Essay'];
+			$model->status = 1;
+			$model->tid=2;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

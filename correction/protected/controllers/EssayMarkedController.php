@@ -6,7 +6,7 @@ class EssayMarkedController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/student';
+	public $layout='//layouts/teacher';
 
 	/**
 	 * @return array action filters
@@ -42,6 +42,10 @@ class EssayMarkedController extends Controller
 				'users'=>array('*'),
 			),
 		);
+	}
+	
+	private function getUser(){
+		return Yii::app()->user->getState('userinfo');
 	}
 
 	/**
@@ -182,13 +186,69 @@ class EssayMarkedController extends Controller
 	public function actionGetEssay(){
 		$page = $_POST['page']; 
 		$limit = $_POST['rows']; 
-		$sidx = $_POST['sidx']; 
+		$sidx = $_POST['sidx']==""?"submittime":$_POST['sidx']; 
 		$sord = $_POST['sord']; 
 		$type = isset($_POST['type'])?$_POST['type']:"all";
+		
+		$userinfo = $this->getUser();
+		
 		switch($type){
 			case "all":
-				$count = Essay::model()->count()
+				$count = Essay::model()->count('t.tid=:tid and t.status > 0',array(':tid'=>$userinfo['uid']));
+				break;
+			case "not":
+				$count = Essay::model()->count('t.tid=:tid and t.status = 1',array(':tid'=>$userinfo['uid']));
+				break;
+			case "rated":
+				$count = Essay::model()->count('t.tid=:tid and t.status = 3',array(':tid'=>$userinfo['uid']));
+				break;
+			case "draft":
+				$count = Essay::model()->count('t.tid=:tid and t.status = 2',array(':tid'=>$userinfo['uid']));
+				break;
 		}
+		
+		if( $count >0 ) {
+			$total_pages = ceil($count/$limit);
+		} else {
+			$total_pages = 0;
+		}
+		if ($page > $total_pages){ 
+			$page=$total_pages;
+		}
+		$start = $limit*$page - $limit;
+		
+		$criteria = new CDbCriteria();
+		$criteria->order = $sidx." ".$sord;
+		$criteria->limit = $limit;
+		$criteria->offset = $start;
+		
+		switch($type){
+			case "all":
+				$criteria->condition='t.tid=:tid and t.status > 0';
+				break;
+			case "not":
+				$criteria = Essay::model()->count('t.tid=:tid and t.status = 1',array(':tid'=>$userinfo['uid'],'limit'=>$limit,'offset'=>$start));
+				break;
+			case "rated":
+				$criteria = Essay::model()->count('t.tid=:tid and t.status = 3',array(':tid'=>$userinfo['uid'],'limit'=>$limit,'offset'=>$start));
+				break;
+			case "draft":
+				$criteria = Essay::model()->count('t.tid=:tid and t.status = 2',array(':tid'=>$userinfo['uid'],'limit'=>$limit,'offset'=>$start));
+				break;
+		}
+		
+		$criteria->params = array(':tid'=>$userinfo['uid']);
+		$result = Essay::model()->findAll($criteria);
+		$responce->page = $page;
+		$responce->total = $total_pages;
+		$responce->records = $count;
+		foreach($result as $row){
+		    $responce->rows[]=array(
+		    	'id'=>$row->id,
+		    	'cell'=>array($row->id,$row->uid,$row->cateid,$row->customquestion,$row->submittime,$row->status)	
+			);
+		}        
+		echo json_encode($responce);
 	}
 	
 	public function actionMark(){

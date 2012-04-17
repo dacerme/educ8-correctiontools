@@ -6,13 +6,14 @@ $(function(){
 		mtype:"post",
 		postData:{'getdata':true,'type':'all'},
 		width:720,
-	   	colNames:['Ref No.','Category', 'Question', 'Submittime','Status'],
+	   	colNames:['Ref No.','User','Category', 'Question', 'Submittime','Status'],
 	   	colModel:[
 	   		{name:'id',index:'id', width:60, sorttype:"int"},
-	   		{name:'cate',index:'invdate', width:90, sorttype:"date"},
-	   		{name:'question',index:'name', width:100},
-	   		{name:'sumittime',index:'amount', width:80, align:"right",sorttype:"float"},
-	   		{name:'status',index:'tax', width:80, align:"right",sorttype:"float"}
+	   		{name:'uid',index:'uid', width:60, sorttype:"int"},
+	   		{name:'cate',index:'cateid', width:90, sorttype:"date"},
+	   		{name:'question',index:'questionid', width:100},
+	   		{name:'sumittime',index:'submittime', width:80, align:"right",sorttype:"float"},
+	   		{name:'status',index:'status', width:80, align:"right",sorttype:"float"}
 	   	],
 	   	rowNum:15,
 	   	sortname:'submittime',
