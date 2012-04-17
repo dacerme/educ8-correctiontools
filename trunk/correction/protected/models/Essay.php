@@ -15,6 +15,7 @@
  * @property string $marktime
  * @property integer $cateid
  * @property integer $subcateid
+ * @property integer $tid
  *
  * The followings are the available model relations:
  * @property Category $cate
@@ -22,6 +23,7 @@
  * @property Category $subcate
  * @property User $u
  * @property EssayMarked[] $essayMarkeds
+ * @property User $t
  */
 class Essay extends CActiveRecord
 {
@@ -73,6 +75,7 @@ class Essay extends CActiveRecord
 			'subcate' => array(self::BELONGS_TO, 'Category', 'subcateid'),
 			'u' => array(self::BELONGS_TO, 'User', 'uid'),
 			'essayMarkeds' => array(self::HAS_MANY, 'EssayMarked', 'e_id'),
+			't' => array(self::BELONGS_TO, 'User', 'tid'),
 		);
 	}
 
@@ -93,6 +96,7 @@ class Essay extends CActiveRecord
 			'marktime' => 'Marktime',
 			'cateid' => 'Cateid',
 			'subcateid' => 'Subcateid',
+			'tid'=>'Tid',
 		);
 	}
 
@@ -118,6 +122,7 @@ class Essay extends CActiveRecord
 		$criteria->compare('marktime',$this->marktime,true);
 		$criteria->compare('cateid',$this->cateid);
 		$criteria->compare('subcateid',$this->subcateid);
+		$criteria->compare('tid',$this->tid);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
