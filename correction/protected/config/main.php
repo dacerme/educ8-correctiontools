@@ -37,6 +37,10 @@ return array(
 		),
 		// uncomment the following to enable URLs in path-format
 		
+		/*'request'=>array(
+			'hostInfo'=>'http://localhost:8806/correction',
+		),*/
+		
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			'showScriptName'=>false,
@@ -53,7 +57,9 @@ return array(
 			'connectionString' => 'mysql:host=localhost;dbname=genesis_correctiontools',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => '',
+			'password' => '123456',
+			/*'username'=>'genesis_lms',
+			'password'=>'oacswkyo',*/
 			'charset' => 'utf8',
 		),
 		
