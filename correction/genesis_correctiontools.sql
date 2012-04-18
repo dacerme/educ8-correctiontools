@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : Localhost
-Source Server Version : 50520
+Source Server         : localhost_3306
+Source Server Version : 50017
 Source Host           : localhost:3306
 Source Database       : genesis_correctiontools
 
 Target Server Type    : MYSQL
-Target Server Version : 50520
+Target Server Version : 50017
 File Encoding         : 65001
 
-Date: 2012-04-07 22:34:02
+Date: 2012-04-18 16:56:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,11 +20,11 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `ct_category`;
 CREATE TABLE `ct_category` (
-  `c_id` int(11) NOT NULL AUTO_INCREMENT,
-  `fid` int(11) NOT NULL DEFAULT '0',
+  `c_id` int(11) NOT NULL auto_increment,
+  `fid` int(11) NOT NULL default '0',
   `name` varchar(100) NOT NULL,
-  PRIMARY KEY (`c_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+  PRIMARY KEY  (`c_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ct_category
@@ -45,18 +45,19 @@ INSERT INTO `ct_category` VALUES ('11', '0', 'Other');
 -- ----------------------------
 DROP TABLE IF EXISTS `ct_essay`;
 CREATE TABLE `ct_essay` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL auto_increment,
   `uid` int(11) NOT NULL,
   `content` text NOT NULL,
-  `questionid` int(11) DEFAULT NULL,
+  `questionid` int(11) default NULL,
   `customquestion` text,
-  `submittime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `status` tinyint(4) NOT NULL DEFAULT '0',
-  `markstatus` tinyint(4) NOT NULL DEFAULT '0',
-  `marktime` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `submittime` timestamp NULL default CURRENT_TIMESTAMP,
+  `status` tinyint(4) NOT NULL default '0',
+  `markstatus` tinyint(4) NOT NULL default '0',
+  `marktime` timestamp NULL default NULL,
   `cateid` int(11) NOT NULL,
-  `subcateid` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  `subcateid` int(11) default NULL,
+  `tid` int(11) default NULL,
+  PRIMARY KEY  (`id`),
   KEY `user` (`uid`),
   KEY `subcate` (`subcateid`),
   KEY `cate` (`cateid`),
@@ -70,21 +71,22 @@ CREATE TABLE `ct_essay` (
 -- ----------------------------
 -- Records of ct_essay
 -- ----------------------------
+INSERT INTO `ct_essay` VALUES ('1', '1', '<p>\r\n	<span style=\"color: rgb(0, 0, 0); font-family: Verdana, Helvetica, Arial, sans-serif; \">CWebUser represents the persistent state for a Web application user.&nbsp;</span><br style=\"color: rgb(0, 0, 0); font-family: Verdana, Helvetica, Arial, sans-serif; \" />\r\n	<br style=\"color: rgb(0, 0, 0); font-family: Verdana, Helvetica, Arial, sans-serif; \" />\r\n	<span style=\"color: rgb(0, 0, 0); font-family: Verdana, Helvetica, Arial, sans-serif; \">CWebUser is used as an application component whose ID is &#39;user&#39;. Therefore, at any place one can access the user state via&nbsp;</span><code style=\"font-size: 14px; color: rgb(0, 0, 0); background-color: rgb(222, 231, 236); \">Yii::app()-&gt;user</code><span style=\"color: rgb(0, 0, 0); font-family: Verdana, Helvetica, Arial, sans-serif; \">.&nbsp;</span><br style=\"color: rgb(0, 0, 0); font-family: Verdana, Helvetica, Arial, sans-serif; \" />\r\n	<br style=\"color: rgb(0, 0, 0); font-family: Verdana, Helvetica, Arial, sans-serif; \" />\r\n	<span style=\"color: rgb(0, 0, 0); font-family: Verdana, Helvetica, Arial, sans-serif; \">CWebUser should be used together with an&nbsp;</span><a href=\"http://api.yiibook.com/IUserIdentity\" style=\"text-decoration: none; color: rgb(51, 102, 153); font-family: Verdana, Helvetica, Arial, sans-serif; \">identity</a><span style=\"color: rgb(0, 0, 0); font-family: Verdana, Helvetica, Arial, sans-serif; \">&nbsp;which implements the actual authentication algorithm.&nbsp;</span><br style=\"color: rgb(0, 0, 0); font-family: Verdana, Helvetica, Arial, sans-serif; \" />\r\n	<br style=\"color: rgb(0, 0, 0); font-family: Verdana, Helvetica, Arial, sans-serif; \" />\r\n	<span style=\"color: rgb(0, 0, 0); font-family: Verdana, Helvetica, Arial, sans-serif; \">A typical authentication process using CWebUser is as follows:</span></p>\r\n<ol style=\"padding-right: 0px; padding-left: 0px; line-height: 1.5em; margin-top: 0.5em; margin-right: 0px; margin-bottom: 0px; margin-left: 2em; color: rgb(0, 0, 0); font-family: Verdana, Helvetica, Arial, sans-serif; \">\r\n	<li style=\"margin-bottom: 1em; \">\r\n		The user provides information needed for authentication.</li>\r\n	<li style=\"margin-bottom: 1em; \">\r\n		An&nbsp;<a href=\"http://api.yiibook.com/IUserIdentity\" style=\"text-decoration: none; color: rgb(51, 102, 153); background-color: transparent; \">identity instance</a>&nbsp;is created with the user-provided information.</li>\r\n	<li style=\"margin-bottom: 1em; \">\r\n		Call&nbsp;<a href=\"http://api.yiibook.com/IUserIdentity#authenticate\" style=\"text-decoration: none; color: rgb(51, 102, 153); background-color: transparent; \">IUserIdentity::authenticate</a>&nbsp;to check if the identity is valid.</li>\r\n	<li style=\"margin-bottom: 1em; \">\r\n		If valid, call&nbsp;<a href=\"http://api.yiibook.com/CWebUser#login\" style=\"text-decoration: none; color: rgb(51, 102, 153); background-color: transparent; \">CWebUser::login</a>&nbsp;to login the user, and Redirect the user browser to&nbsp;<a href=\"http://api.yiibook.com/CWebUser#returnUrl\" style=\"text-decoration: none; color: rgb(51, 102, 153); background-color: transparent; \">returnUrl</a>.</li>\r\n	<li style=\"margin-bottom: 1em; \">\r\n		If not valid, retrieve the error code or message from the identity instance and display it</li>\r\n</ol>\r\n', '1', 'Test Question', '0000-00-00 00:00:00', '1', '0', '2012-04-17 14:57:12', '1', '5', '2');
 
 -- ----------------------------
 -- Table structure for `ct_essay_annotation`
 -- ----------------------------
 DROP TABLE IF EXISTS `ct_essay_annotation`;
 CREATE TABLE `ct_essay_annotation` (
-  `a_id` int(11) NOT NULL AUTO_INCREMENT,
+  `a_id` int(11) NOT NULL auto_increment,
   `annotation` varchar(10) NOT NULL,
-  `caption` varchar(50) DEFAULT NULL,
+  `caption` varchar(50) default NULL,
   `caption_en` varchar(100) NOT NULL,
-  `explain` varchar(100) DEFAULT NULL,
+  `explain` varchar(100) default NULL,
   `explain_en` varchar(200) NOT NULL,
   `value` float(2,2) NOT NULL,
-  PRIMARY KEY (`a_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+  PRIMARY KEY  (`a_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ct_essay_annotation
@@ -131,10 +133,10 @@ INSERT INTO `ct_essay_annotation` VALUES ('36', 'WOR', null, 'Incorrect word ord
 -- ----------------------------
 DROP TABLE IF EXISTS `ct_essay_comment`;
 CREATE TABLE `ct_essay_comment` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL auto_increment,
   `m_id` int(11) NOT NULL,
   `content` text NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY  (`id`),
   KEY `mark` (`m_id`),
   CONSTRAINT `mark` FOREIGN KEY (`m_id`) REFERENCES `ct_essay_marked` (`m_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -148,16 +150,16 @@ CREATE TABLE `ct_essay_comment` (
 -- ----------------------------
 DROP TABLE IF EXISTS `ct_essay_grade`;
 CREATE TABLE `ct_essay_grade` (
-  `g_id` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `g_id` tinyint(4) NOT NULL auto_increment,
   `gradename` varchar(10) NOT NULL,
   `caption` text NOT NULL,
-  `caption_en` varchar(100) DEFAULT NULL,
+  `caption_en` varchar(100) default NULL,
   `explain` text NOT NULL,
-  `explain_en` varchar(200) DEFAULT NULL,
-  `rate` float(2,2) DEFAULT NULL,
+  `explain_en` varchar(200) default NULL,
+  `rate` float(2,2) default NULL,
   `category` tinyint(4) NOT NULL,
-  PRIMARY KEY (`g_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
+  PRIMARY KEY  (`g_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ct_essay_grade
@@ -204,45 +206,45 @@ INSERT INTO `ct_essay_grade` VALUES ('72', 'T2_HA', 'Holistic Assessment', 'æ•´ä
 -- ----------------------------
 DROP TABLE IF EXISTS `ct_essay_gradescore`;
 CREATE TABLE `ct_essay_gradescore` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL auto_increment,
   `m_id` int(11) NOT NULL,
-  `P_RTP` tinyint(4) DEFAULT NULL,
-  `P_ORG` tinyint(4) DEFAULT NULL,
-  `P_DAD` tinyint(4) DEFAULT NULL,
-  `P_GRA` tinyint(4) DEFAULT NULL,
-  `I1_TR` tinyint(4) DEFAULT NULL,
-  `I1_OAS` tinyint(4) DEFAULT NULL,
-  `I1_DAD` tinyint(4) DEFAULT NULL,
-  `I1_LR` tinyint(4) DEFAULT NULL,
-  `I1_GRA` tinyint(4) DEFAULT NULL,
-  `I1_HA` tinyint(4) DEFAULT NULL,
-  `I2_TR` tinyint(4) DEFAULT NULL,
-  `I2_OAS` tinyint(4) DEFAULT NULL,
-  `I2_DAD` tinyint(4) DEFAULT NULL,
-  `I2_LR` tinyint(4) DEFAULT NULL,
-  `I2_GRA` tinyint(4) DEFAULT NULL,
-  `I2_HA` tinyint(4) DEFAULT NULL,
-  `G1_TR` tinyint(4) DEFAULT NULL,
-  `G1_OAS` tinyint(4) DEFAULT NULL,
-  `G1_DAD` tinyint(4) DEFAULT NULL,
-  `G1_GRA` tinyint(4) DEFAULT NULL,
-  `G1_HA` tinyint(4) DEFAULT NULL,
-  `G2_TR` tinyint(4) DEFAULT NULL,
-  `G2_OAS` tinyint(4) DEFAULT NULL,
-  `G2_DAD` tinyint(4) DEFAULT NULL,
-  `G2_GRA` tinyint(4) DEFAULT NULL,
-  `G2_HA` tinyint(4) DEFAULT NULL,
-  `T1_TR` tinyint(4) DEFAULT NULL,
-  `T1_OAS` tinyint(4) DEFAULT NULL,
-  `T1_DAD` tinyint(4) DEFAULT NULL,
-  `T1_GRA` tinyint(4) DEFAULT NULL,
-  `T1_HA` tinyint(4) DEFAULT NULL,
-  `T2_TR` tinyint(4) DEFAULT NULL,
-  `T2_OAS` tinyint(4) DEFAULT NULL,
-  `T2_DAD` tinyint(4) DEFAULT NULL,
-  `T2_GRA` tinyint(4) DEFAULT NULL,
-  `T2_HA` tinyint(4) DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  `P_RTP` tinyint(4) default NULL,
+  `P_ORG` tinyint(4) default NULL,
+  `P_DAD` tinyint(4) default NULL,
+  `P_GRA` tinyint(4) default NULL,
+  `I1_TR` tinyint(4) default NULL,
+  `I1_OAS` tinyint(4) default NULL,
+  `I1_DAD` tinyint(4) default NULL,
+  `I1_LR` tinyint(4) default NULL,
+  `I1_GRA` tinyint(4) default NULL,
+  `I1_HA` tinyint(4) default NULL,
+  `I2_TR` tinyint(4) default NULL,
+  `I2_OAS` tinyint(4) default NULL,
+  `I2_DAD` tinyint(4) default NULL,
+  `I2_LR` tinyint(4) default NULL,
+  `I2_GRA` tinyint(4) default NULL,
+  `I2_HA` tinyint(4) default NULL,
+  `G1_TR` tinyint(4) default NULL,
+  `G1_OAS` tinyint(4) default NULL,
+  `G1_DAD` tinyint(4) default NULL,
+  `G1_GRA` tinyint(4) default NULL,
+  `G1_HA` tinyint(4) default NULL,
+  `G2_TR` tinyint(4) default NULL,
+  `G2_OAS` tinyint(4) default NULL,
+  `G2_DAD` tinyint(4) default NULL,
+  `G2_GRA` tinyint(4) default NULL,
+  `G2_HA` tinyint(4) default NULL,
+  `T1_TR` tinyint(4) default NULL,
+  `T1_OAS` tinyint(4) default NULL,
+  `T1_DAD` tinyint(4) default NULL,
+  `T1_GRA` tinyint(4) default NULL,
+  `T1_HA` tinyint(4) default NULL,
+  `T2_TR` tinyint(4) default NULL,
+  `T2_OAS` tinyint(4) default NULL,
+  `T2_DAD` tinyint(4) default NULL,
+  `T2_GRA` tinyint(4) default NULL,
+  `T2_HA` tinyint(4) default NULL,
+  PRIMARY KEY  (`id`),
   KEY `gmark` (`m_id`),
   CONSTRAINT `gmark` FOREIGN KEY (`m_id`) REFERENCES `ct_essay_marked` (`m_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -256,15 +258,15 @@ CREATE TABLE `ct_essay_gradescore` (
 -- ----------------------------
 DROP TABLE IF EXISTS `ct_essay_marked`;
 CREATE TABLE `ct_essay_marked` (
-  `m_id` int(11) NOT NULL AUTO_INCREMENT,
+  `m_id` int(11) NOT NULL auto_increment,
   `e_id` int(11) NOT NULL,
   `markedcontent` text NOT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '0',
-  `marktime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `status` tinyint(4) NOT NULL default '0',
+  `marktime` timestamp NOT NULL default '0000-00-00 00:00:00' on update CURRENT_TIMESTAMP,
   `tid` int(11) NOT NULL,
   `feedback` text,
-  `score` int(2) DEFAULT NULL,
-  PRIMARY KEY (`m_id`),
+  `score` int(2) default NULL,
+  PRIMARY KEY  (`m_id`),
   KEY `essay` (`e_id`),
   KEY `teacher` (`tid`),
   CONSTRAINT `essay` FOREIGN KEY (`e_id`) REFERENCES `ct_essay` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -280,11 +282,11 @@ CREATE TABLE `ct_essay_marked` (
 -- ----------------------------
 DROP TABLE IF EXISTS `ct_group`;
 CREATE TABLE `ct_group` (
-  `gid` int(11) NOT NULL AUTO_INCREMENT,
+  `gid` int(11) NOT NULL auto_increment,
   `groupname` varchar(20) NOT NULL,
-  `status` int(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`gid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  `status` int(1) NOT NULL default '1',
+  PRIMARY KEY  (`gid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ct_group
@@ -298,38 +300,41 @@ INSERT INTO `ct_group` VALUES ('3', 'teacher', '1');
 -- ----------------------------
 DROP TABLE IF EXISTS `ct_question`;
 CREATE TABLE `ct_question` (
-  `qid` int(11) NOT NULL AUTO_INCREMENT,
+  `qid` int(11) NOT NULL auto_increment,
   `title` varchar(200) NOT NULL,
   `content` text NOT NULL,
-  `cateid` tinyint(4) DEFAULT NULL,
-  `subcateid` tinyint(4) DEFAULT NULL,
-  `updatetime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  `status` tinyint(4) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`qid`)
+  `cateid` tinyint(4) default NULL,
+  `subcateid` tinyint(4) default NULL,
+  `updatetime` timestamp NOT NULL default '0000-00-00 00:00:00' on update CURRENT_TIMESTAMP,
+  `status` tinyint(4) NOT NULL default '1',
+  PRIMARY KEY  (`qid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ct_question
 -- ----------------------------
+INSERT INTO `ct_question` VALUES ('1', 'Custom Quetion', ' ', null, null, '0000-00-00 00:00:00', '1');
 
 -- ----------------------------
 -- Table structure for `ct_user`
 -- ----------------------------
 DROP TABLE IF EXISTS `ct_user`;
 CREATE TABLE `ct_user` (
-  `uid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'userid',
+  `uid` int(11) NOT NULL auto_increment COMMENT 'userid',
   `username` varchar(20) NOT NULL,
   `password` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `gender` int(1) DEFAULT NULL,
-  `country` varchar(20) DEFAULT NULL,
-  `active` int(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`uid`)
+  `gender` int(1) default NULL,
+  `country` varchar(20) default NULL,
+  `active` int(1) NOT NULL default '1',
+  PRIMARY KEY  (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ct_user
 -- ----------------------------
+INSERT INTO `ct_user` VALUES ('1', 'mousetrapj', '84fe11482bddf055793b5081afd43fc0', 'mousetrapj@yeah.net', null, null, '1');
+INSERT INTO `ct_user` VALUES ('2', 'test', 'e10adc3949ba59abbe56e057f20f883e', 'mousetrapj@126.com', null, null, '1');
 
 -- ----------------------------
 -- Table structure for `ct_user_plus`
@@ -337,11 +342,12 @@ CREATE TABLE `ct_user` (
 DROP TABLE IF EXISTS `ct_user_plus`;
 CREATE TABLE `ct_user_plus` (
   `uid` int(11) NOT NULL,
-  `groupid` int(11) NOT NULL DEFAULT '2',
-  `lastip` varchar(20) DEFAULT NULL,
-  `lastsignin` timestamp NULL DEFAULT NULL,
-  `account` float(4,2) DEFAULT '0.00',
-  PRIMARY KEY (`uid`),
+  `groupid` int(11) NOT NULL default '2',
+  `lastip` varchar(20) default NULL,
+  `lastsignin` timestamp NULL default NULL,
+  `account` float(4,2) default '0.00',
+  `regtime` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  PRIMARY KEY  (`uid`),
   KEY `group` (`groupid`),
   CONSTRAINT `group` FOREIGN KEY (`groupid`) REFERENCES `ct_group` (`gid`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -349,3 +355,5 @@ CREATE TABLE `ct_user_plus` (
 -- ----------------------------
 -- Records of ct_user_plus
 -- ----------------------------
+INSERT INTO `ct_user_plus` VALUES ('1', '2', null, null, '0.00', '2012-04-10 15:07:45');
+INSERT INTO `ct_user_plus` VALUES ('2', '3', null, null, '0.00', '2012-04-13 16:01:05');
