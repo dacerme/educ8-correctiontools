@@ -58,7 +58,7 @@ $(function(){
 		 </div>
 		</textarea>
 	</div>
-	<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript">
 		CKEDITOR.replace( 'markcontent',{width:740,height:400});
 	</script>
