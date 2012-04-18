@@ -253,7 +253,7 @@ class EssayMarkedController extends Controller
 	
 	public function actionMark(){
 		$type=$_GET['type'];
-		$essayid = $_GET['eassyid'];
+		$essayid = $_GET['essayid'];
 		$model = new EssayMarked;
 		$this->render('mark',array('model'=>$model));
 	}
