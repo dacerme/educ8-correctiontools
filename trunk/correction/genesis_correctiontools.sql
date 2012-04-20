@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50017
 File Encoding         : 65001
 
-Date: 2012-04-18 16:56:56
+Date: 2012-04-20 17:55:54
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -81,52 +81,64 @@ CREATE TABLE `ct_essay_annotation` (
   `a_id` int(11) NOT NULL auto_increment,
   `annotation` varchar(10) NOT NULL,
   `caption` varchar(50) default NULL,
-  `caption_en` varchar(100) NOT NULL,
+  `caption_en` varchar(100) default NULL,
   `explain` varchar(100) default NULL,
-  `explain_en` varchar(200) NOT NULL,
-  `value` float(2,2) NOT NULL,
+  `explain_en` varchar(200) default NULL,
+  `value` float(3,2) NOT NULL,
   PRIMARY KEY  (`a_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ct_essay_annotation
 -- ----------------------------
-INSERT INTO `ct_essay_annotation` VALUES ('1', 'ABV', null, 'Incorrect abbreviation', null, 'Invalid abbreviated form or use', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('2', 'ADJ', null, 'Adjective error', null, 'Incorrect adjectival form or placement.', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('3', 'ART', null, 'Incorrect use of the article.', null, 'The article is used to limit or specify a noun.', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('4', 'CAP', null, 'Capitalization error.', null, 'A capital letter should be used to begin a sentence or for any form of proper nouns.', '0.25');
-INSERT INTO `ct_essay_annotation` VALUES ('5', 'CHI', null, 'Chinglish expression', null, 'A literal translation from Chinese to English.', '0.25');
-INSERT INTO `ct_essay_annotation` VALUES ('6', 'CLA', null, 'Clause deficiency', null, 'Incorrect formation or placement of the clause in the sentence.', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('7', 'CNT', null, 'Contraction error', null, 'Improper or invalid contraction form or use.', '0.25');
-INSERT INTO `ct_essay_annotation` VALUES ('8', 'COL', null, 'Error in word combination', null, 'Abnormal combination of word usage.', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('9', 'CON', null, 'Incorrect or missing conjunction', null, 'Use a conjunction to connect words, phrases or clauses.', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('10', 'COU', null, 'Count noun error', null, 'Count nouns denote enumerable objects.', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('11', 'CUT', null, 'This text is not required', null, 'The words are superfluous to the context of the clause or sentence.', '0.25');
-INSERT INTO `ct_essay_annotation` VALUES ('12', 'FOR', null, 'Formatting error', null, 'The  correct organization and arrangement of a specified text', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('13', 'FRG', null, 'Fragmentation error', null, 'An incomplete or isolated portion of text.', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('14', 'GND', null, 'Use of incorrect gender', null, 'Invalid gender selection.', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('15', 'INC', null, 'Incomprehensible text', null, 'The text  lacks clarity and cannot be understood in the context.', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('16', 'INT', null, 'Invalid interrogative', null, 'Error with the interrogative form or usage.', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('17', 'LON', null, 'The sentence is too long.', null, 'The sentence is too long and is  unclear.', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('18', 'MIS', null, 'Words are missing.', null, 'Words have been omitted and the meaning of the sentence effected.', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('19', 'MOD', null, 'Modifier error', null, 'Incorrect or misplaced modifier', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('20', 'PLU', null, 'Error in singular or plural form', null, 'Incorrect use of singular or plural form.', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('21', 'POS', null, 'Incorrect possessive form', null, 'Invalid formation or use of the possessive case.', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('22', 'POW', null, 'Poor word selection', null, 'Use of incorrect terminology.', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('23', 'PRE', null, 'Preposition error', null, 'Incorrect or missing preposition.', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('24', 'PRO', null, 'Pronoun error', null, 'Incorrect or missing preposition.', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('25', 'PUN', null, 'Incorrect punctuation', null, 'Punctuation is omitted or the incorrect form.', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('26', 'QOT', null, 'Quotation error', null, 'Error in quotation, inaccurate, incomplete or failure to acknowledge.', '0.25');
-INSERT INTO `ct_essay_annotation` VALUES ('27', 'REP', null, 'Repetitive word or comment', null, 'Words or phrases have been repeated in the text.', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('28', 'SHS', null, 'The sentence is too short', null, 'The sentence is too short or is lacking in information.', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('29', 'SPL', null, 'Spelling error', null, 'Word is spelt incorrectly.', '0.25');
+INSERT INTO `ct_essay_annotation` VALUES ('1', 'ABV', null, 'Incorrect abbreviation', null, 'Invalid abbreviated form or use', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('2', 'ADJ', null, 'Adjective error', null, 'Incorrect adjectival form or placement.', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('3', 'ART', null, 'Incorrect use of the article.', null, 'The article is used to limit or specify a noun.', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('4', 'CAP', null, 'Capitalization error.', null, 'A capital letter should be used to begin a sentence or for any form of proper nouns.', '-0.25');
+INSERT INTO `ct_essay_annotation` VALUES ('5', 'CHI', null, 'Chinglish expression', null, 'A literal translation from Chinese to English.', '-0.25');
+INSERT INTO `ct_essay_annotation` VALUES ('6', 'CLA', null, 'Clause deficiency', null, 'Incorrect formation or placement of the clause in the sentence.', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('7', 'CNT', null, 'Contraction error', null, 'Improper or invalid contraction form or use.', '-0.25');
+INSERT INTO `ct_essay_annotation` VALUES ('8', 'COL', null, 'Error in word combination', null, 'Abnormal combination of word usage.', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('9', 'CON', null, 'Incorrect or missing conjunction', null, 'Use a conjunction to connect words, phrases or clauses.', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('10', 'COU', null, 'Count noun error', null, 'Count nouns denote enumerable objects.', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('11', 'CUT', null, 'This text is not required', null, 'The words are superfluous to the context of the clause or sentence.', '-0.25');
+INSERT INTO `ct_essay_annotation` VALUES ('12', 'FOR', null, 'Formatting error', null, 'The  correct organization and arrangement of a specified text', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('13', 'FRG', null, 'Fragmentation error', null, 'An incomplete or isolated portion of text.', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('14', 'GND', null, 'Use of incorrect gender', null, 'Invalid gender selection.', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('15', 'INC', null, 'Incomprehensible text', null, 'The text  lacks clarity and cannot be understood in the context.', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('16', 'INT', null, 'Invalid interrogative', null, 'Error with the interrogative form or usage.', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('17', 'LON', null, 'The sentence is too long.', null, 'The sentence is too long and is  unclear.', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('18', 'MIS', null, 'Words are missing.', null, 'Words have been omitted and the meaning of the sentence effected.', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('19', 'MOD', null, 'Modifier error', null, 'Incorrect or misplaced modifier', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('20', 'PLU', null, 'Error in singular or plural form', null, 'Incorrect use of singular or plural form.', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('21', 'POS', null, 'Incorrect possessive form', null, 'Invalid formation or use of the possessive case.', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('22', 'POW', null, 'Poor word selection', null, 'Use of incorrect terminology.', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('23', 'PRE', null, 'Preposition error', null, 'Incorrect or missing preposition.', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('24', 'PRO', null, 'Pronoun error', null, 'Incorrect or missing preposition.', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('25', 'PUN', null, 'Incorrect punctuation', null, 'Punctuation is omitted or the incorrect form.', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('26', 'QOT', null, 'Quotation error', null, 'Error in quotation, inaccurate, incomplete or failure to acknowledge.', '-0.25');
+INSERT INTO `ct_essay_annotation` VALUES ('27', 'REP', null, 'Repetitive word or comment', null, 'Words or phrases have been repeated in the text.', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('28', 'SHS', null, 'The sentence is too short', null, 'The sentence is too short or is lacking in information.', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('29', 'SPL', null, 'Spelling error', null, 'Word is spelt incorrectly.', '-0.25');
 INSERT INTO `ct_essay_annotation` VALUES ('30', 'TYP', null, 'Text input error', null, 'Typographical mistake.', '0.00');
-INSERT INTO `ct_essay_annotation` VALUES ('31', 'VAG', null, 'The reference is too vague.', null, 'The meaning is obscure or not precise in its description.', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('32', 'VTE', null, 'Tense error', null, 'Use of incorrect verb tense.', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('33', 'VFO', null, 'Invalid verb formation', null, 'Error in the conjugation of the verb.', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('34', 'VOI', null, 'Invalid verb use', null, 'Incorrect application of the verb to active or passive voice.', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('35', 'WFO', null, 'Invalid word formation', null, 'Improper affix, prefix or suffix.', '0.50');
-INSERT INTO `ct_essay_annotation` VALUES ('36', 'WOR', null, 'Incorrect word order', null, 'Words in a phrase or clause are placed incorrectly.', '0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('31', 'VAG', null, 'The reference is too vague.', null, 'The meaning is obscure or not precise in its description.', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('32', 'VTE', null, 'Tense error', null, 'Use of incorrect verb tense.', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('33', 'VFO', null, 'Invalid verb formation', null, 'Error in the conjugation of the verb.', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('34', 'VOI', null, 'Invalid verb use', null, 'Incorrect application of the verb to active or passive voice.', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('35', 'WFO', null, 'Invalid word formation', null, 'Improper affix, prefix or suffix.', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('36', 'WOR', null, 'Incorrect word order', null, 'Words in a phrase or clause are placed incorrectly.', '-0.50');
+INSERT INTO `ct_essay_annotation` VALUES ('37', 'EXC', null, 'Excellent', null, null, '1.00');
+INSERT INTO `ct_essay_annotation` VALUES ('38', 'ANS', null, 'Sound analysis', null, null, '1.00');
+INSERT INTO `ct_essay_annotation` VALUES ('39', 'CNC', null, 'Appropriate conclusion', null, null, '1.00');
+INSERT INTO `ct_essay_annotation` VALUES ('40', 'COH', null, 'Sound cohesion', null, null, '1.00');
+INSERT INTO `ct_essay_annotation` VALUES ('41', 'CRE', null, 'Original argument', null, null, '1.00');
+INSERT INTO `ct_essay_annotation` VALUES ('42', 'ARG', null, 'Yes，I agree', null, null, '1.00');
+INSERT INTO `ct_essay_annotation` VALUES ('43', 'IRO', null, 'Well founded introduction', null, null, '1.00');
+INSERT INTO `ct_essay_annotation` VALUES ('44', 'PRG', null, 'Well formed paragraph', null, 'Good structure for a group of closely related sentences that develop a central idea', '1.00');
+INSERT INTO `ct_essay_annotation` VALUES ('45', 'WCH', null, 'Words choice appropriate', null, null, '1.00');
+INSERT INTO `ct_essay_annotation` VALUES ('46', 'SEV', null, 'Well supported', null, null, '1.00');
+INSERT INTO `ct_essay_annotation` VALUES ('47', 'SST', null, 'Competent structure', null, null, '1.00');
+INSERT INTO `ct_essay_annotation` VALUES ('48', 'TRN', null, 'Reasonable transition', null, null, '1.00');
 
 -- ----------------------------
 -- Table structure for `ct_essay_comment`
