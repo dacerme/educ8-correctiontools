@@ -27,7 +27,7 @@ class EssayMarkedController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','list','getessay','mark'),
+				'actions'=>array('index','view','list','getessay','mark','getannotations'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -254,7 +254,67 @@ class EssayMarkedController extends Controller
 	public function actionMark(){
 		$type=$_GET['type'];
 		$essayid = $_GET['essayid'];
+		$essay = Essay::model()->findByPk($essayid);
 		$model = new EssayMarked;
-		$this->render('mark',array('model'=>$model));
+		$this->render('mark',array('model'=>$model,'essay'=>$essay));
+	}
+	
+	
+	public function actionGetannotations(){
+		$criteria = new CDbCriteria();
+		$criteria->order = 'value asc';
+		$model = EssayAnnotation::model()->findAll($criteria);
+		$i=0;
+		$bigarray = array();
+		$array = array();
+		foreach($model as $m){
+			$temp = array(
+				'type'=>'checkbox',
+				'id'=>$m->a_id,
+				'label'=>$m->annotation,
+				'title'=>'caption:'.$m->caption_en.";explain:".$m->explain_en.";value:".$m->value,
+				'style'=>$this->getColor($m->value),
+				'commit'=>'function(data){data.annid = this.getValue();}'
+			);
+			if($i+1<8){
+				$array[]=$temp;
+				$i++;
+			}else{
+				$array[]=$temp;
+				$bigarray[]=$array;
+				$array = array();
+				$i=0;
+			}
+		}
+		$finalarray = array();
+		for($j=0;$j<count($bigarray);$j++){
+			$temp2 = array(
+			   'type'=>'hbox',
+		       'widths'=>array('12%','12%','12%','12%','12%','12%','12%','12%'),
+			   'children'=>$bigarray[$j]
+			);
+			$finalarray[]=$temp2;
+		}
+
+		$advice = array(
+			'id'=>'advice',
+			'type'=>'textarea',
+			'label'=>'Advice',
+			'commit'=>'function(data){data.advice = this.getValue();}'
+		);
+
+		$finalarray[]=$advice;
+		echo json_encode(array('id'=>'annotaionbuttons','elements'=>$finalarray));
+	}
+	
+	private function getColor($value){
+	    $value = floatval($value);
+		if($value < 0){
+			return "background-color:red;";
+		}else if($value == 0){
+			return "background-color:#CCCCCC;";
+		}else{
+			return "background-color:green;";
+		}
 	}
 }

@@ -12,22 +12,25 @@ $(function(){
 	<h3>Step 2. Mark it:</h3>
 	<div class="row">
 		<textarea id="markcontent">
-		 <div>
-			<span title="advice:com;value:-0.1;" id="flow1">righthere<sup>COM</sup></span>
-		 </div>
+			<?echo $essay->content?>
 		</textarea>
 	</div>
 	<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript">
-			CKEDITOR.replace( 'markcontent',{width:740,height:400,extraPlugins:'annotation'});
+			var annodata;
+		    $.ajax({
+		    	url:baseurl+'/essaymarked/getannotations',
+		    	dataType:'json',
+		    	success:function(data){
+		    		annodata = data;
+		    		CKEDITOR.replace( 'markcontent',{width:740,height:400,extraPlugins:'annotation'});
+		    	}
+		    });
 	</script>
 
 	<h3>Step 3. Give score and feedback:</h3>
 
 	<div class="row">
-		<div>
-			<span title="advice:com;value:-0.1;" id="flow1">righthere<sup>COM</sup></span>
-		</div>
 	</div>
 	
 	<div class="row buttons">
