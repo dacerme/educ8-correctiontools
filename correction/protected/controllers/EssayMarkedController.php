@@ -272,9 +272,9 @@ class EssayMarkedController extends Controller
 				'type'=>'checkbox',
 				'id'=>$m->a_id,
 				'label'=>$m->annotation,
+				'group'=>'ann',
 				'title'=>'caption:'.$m->caption_en.";explain:".$m->explain_en.";value:".$m->value,
-				'style'=>$this->getColor($m->value),
-				'commit'=>'function(data){data.annid = this.getValue();}'
+				'style'=>$this->getColor($m->value)
 			);
 			if($i+1<8){
 				$array[]=$temp;
@@ -299,12 +299,11 @@ class EssayMarkedController extends Controller
 		$advice = array(
 			'id'=>'advice',
 			'type'=>'textarea',
-			'label'=>'Advice',
-			'commit'=>'function(data){data.advice = this.getValue();}'
+			'label'=>'Advice'
 		);
 
 		$finalarray[]=$advice;
-		echo json_encode(array('id'=>'annotaionbuttons','elements'=>$finalarray));
+		echo json_encode(array('id'=>'annotationbuttons','elements'=>$finalarray));
 	}
 	
 	private function getColor($value){
