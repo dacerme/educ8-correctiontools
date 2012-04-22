@@ -2,30 +2,35 @@ CKEDITOR.plugins.add( 'annotation',
 {
 	init: function( editor )
 	{
-		var iconPath = this.path + 'images/icon.png';
-		var iconPath2 = this.path + 'images/icon2.png';
-	    //var annodata;
-	    
-	    /*$.ajax({
-	    	url:baseurl+'/essaymarked/getannotations',
-	    	dataType:'json',
-	    	success:function(data){
-	    		annodata = data;
-	    		init2();
-	    	}
-	    });
-		
-		function init2(){*/
+			var iconPath = this.path + 'images/icon.png';
+			var iconPath2 = this.path + 'images/icon2.png';
+
 			editor.addCommand('annotationDialog',new CKEDITOR.dialogCommand( 'annotationDialog' ) );
 			editor.addCommand('commentsDialog',new CKEDITOR.dialogCommand( 'commentsDialog' ) );
 			editor.addCommand('deleteAnnotation',{
 				exec:function(editor){
-					alert("1");
+					var sel = editor.getSelection(),
+						element = sel.getStartElement();
+					if ( element )
+						element = element.getAscendant( 'span', true );
+					if ( element && element.getAttribute('custom') != null && element.getAttribute('custom') == "ann" && !element.isReadOnly() && !element.data( 'cke-realelement' ) )
+	 				{
+	 					element.setText(element.getChild(0).getText());
+	 					element.remove(true);
+	 				}
 				}
 			});
 			editor.addCommand('deleteComment',{
 				exec:function(editor){
-					alert("2");
+					var sel = editor.getSelection(),
+						element = sel.getStartElement();
+					if ( element )
+						element = element.getAscendant( 'span', true );
+					if ( element && element.getAttribute('custom') != null && element.getAttribute('custom') == "com" && !element.isReadOnly() && !element.data( 'cke-realelement' ) )
+	 				{
+	 					element.setText(element.getChild(0).getText());
+	 					element.remove(true);
+	 				}
 				}
 			});
 	 
@@ -84,11 +89,15 @@ CKEDITOR.plugins.add( 'annotation',
 					if ( element )
 						element = element.getAscendant( 'span', true );
 					if ( element && element.getAttribute('custom') != null && element.getAttribute('custom') == "ann" && !element.isReadOnly() && !element.data( 'cke-realelement' ) ){
-	 					return { editannotation : CKEDITOR.TRISTATE_OFF,deleteannotation : CKEDITOR.TRISTATE_OFF};
+	 					//return { editannotation : CKEDITOR.TRISTATE_OFF,deleteannotation : CKEDITOR.TRISTATE_OFF};
+	 					return {deleteannotation : CKEDITOR.TRISTATE_OFF};
 	 				}else if ( element && element.getAttribute('custom') != null && element.getAttribute('custom') == "com" && !element.isReadOnly() && !element.data( 'cke-realelement' ) ){
-	 					return { editcomment: CKEDITOR.TRISTATE_OFF,deletecomment : CKEDITOR.TRISTATE_OFF};
+	 					//return { editcomment: CKEDITOR.TRISTATE_OFF,deletecomment : CKEDITOR.TRISTATE_OFF};
+	 					return { deletecomment : CKEDITOR.TRISTATE_OFF};
 	 				}else{
-	 					return { addannotation : CKEDITOR.TRISTATE_OFF,addcomment:CKEDITOR.TRISTATE_OFF};
+	 					if(editor.getSelection().getSelectedText() != ""){
+	 						return { addannotation : CKEDITOR.TRISTATE_OFF,addcomment:CKEDITOR.TRISTATE_OFF};
+	 					}
 	 				}
 				});
 			}
@@ -102,12 +111,45 @@ CKEDITOR.plugins.add( 'annotation',
 					contents : [annodata],
 					onShow : function()
 					{
+					   /* var sel = editor.getSelection(),
+						element = sel.getStartElement();
+						if ( element )
+							element = element.getAscendant( 'span', true );
+						if ( element && element.getAttribute('custom') != null && element.getAttribute('custom') == "ann" && !element.isReadOnly() && !element.data( 'cke-realelement' ) )
+	 					{
+							this.foreach(function(e){
+								if(e.label == element.getAttribute('ann')){
+									e.setValue(true);
+								}
+							});
+							var title = element.getAttribute("title");
+							var a1 = title.split(";");
+							var a2 = a1[3].split(":");
+							var advice = a2[1];
+							this.getContentElement("annotationbuttons","advice").setValue(advice);
+							this.editmode = true;
+							this.element = element;
+						}else{
+							this.editmode = false;
+						}*/
 					},
 					onOk : function()
 					{
-					  var data = new Object;
-					  this.commitContent(data);
-					  alert(this.getContentElement('annotaionbuttons', 'advice').getValue());
+					 /*if(this.editmode){
+					 	 this.element.innerHTML = "a";
+					 }else{*/
+						 this.foreach(function(e){
+						 	    if(e.getValue()){
+						 	    	ann = e.label;
+						 	    	style = e.style;
+						 	    	title = e.title;
+						 	    }
+						 });
+					     var advice = this.getContentElement("annotationbuttons","advice").getValue();
+					     var orginal = editor.getSelection().getSelectedText();
+					     var inserthtml = "<span custom='ann' ann="+ann+" title='"+title+";advice:"+advice+"'><i style='"+style+"'>"+orginal+"</i><sup style='"+style+"font-size:14px;color:white;'>"+ann+"</sup></span>";
+					     editor.insertHtml(inserthtml);
+				     //}
 					}
 				};
 			} );
@@ -116,74 +158,26 @@ CKEDITOR.plugins.add( 'annotation',
 			CKEDITOR.dialog.add( 'commentsDialog', function( editor )
 			{
 				return {
-					title : 'Annotations',
+					title : 'Comments',
 					minWidth : 400,
 					minHeight : 200,
 					contents :
 					[
 						{
-							id : 'tab1',
-							label : 'Basic Settings',
+							id : 'comments',
 							elements :
 							[
 								{
-									type : 'text',
-									id : 'span',
-									label : 'Abbreviation',
-									validate : CKEDITOR.dialog.validate.notEmpty( "Abbreviation field cannot be empty" ),
-									setup : function( element )
-									{
-										this.setValue( element.getText() );
-									},
-									commit : function( element )
-									{
-										element.setText( this.getValue() );
-									}
-								},
-								{
-									type : 'text',
-									id : 'title',
-									label : 'Explanation',
-									validate : CKEDITOR.dialog.validate.notEmpty( "Explanation field cannot be empty" ),
-									setup : function( element )
-									{
-										this.setValue( element.getAttribute( "title" ) );
-									},
-									commit : function( element )
-									{
-										element.setAttribute( "title", this.getValue() );
-									}
-								}	 
-							]
-						},
-						{
-							id : 'tab2',
-							label : 'Advanced Settings',
-							elements :
-							[
-								{
-									type : 'text',
-									id : 'id',
-									label : 'Id',
-									setup : function( element )
-									{
-										this.setValue( element.getAttribute( "id" ) );
-									},
-									commit : function ( element )
-									{
-										var id = this.getValue();
-										if ( id )
-											element.setAttribute( 'id', id );
-										else if ( !this.insertMode )
-											element.removeAttribute( 'id' );
-									}
+									type : 'textarea',
+									id : 'comment',
+									label : 'Comment:',
 								}
 							]
 						}
 					],
 					onShow : function()
 					{
-						var sel = editor.getSelection(),
+						/*var sel = editor.getSelection(),
 							element = sel.getStartElement();
 						if ( element )
 							element = element.getAscendant( 'abbr', true );
@@ -198,16 +192,14 @@ CKEDITOR.plugins.add( 'annotation',
 	 
 						this.element = element;
 	 
-						this.setupContent( this.element );
+						this.setupContent( this.element );*/
 					},
 					onOk : function()
 					{
-						var dialog = this,
-							span = this.element;
-	 
-						if ( this.insertMode )
-							editor.insertElement( span );
-						this.commitContent( span );
+						 var comment = this.getContentElement("comments","comment").getValue();
+					     var orginal = editor.getSelection().getSelectedText();
+					     var inserthtml = "<span custom='com'><i style='background-color:lightblue'>"+orginal+"</i><sup style='background-color:lightblue;font-size:14px;color:white;'>COM</sup></span>";
+					     editor.insertHtml(inserthtml);
 					}
 				};
 			} );
