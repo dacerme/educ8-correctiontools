@@ -4,7 +4,7 @@ $(function(){
 		url:baseurl+'/essaymarked/getessay',
 		datatype: "json",
 		mtype:"post",
-		postData:{'getdata':true,'type':'all'},
+		postData:{'getdata':true,'type':'<?echo $_GET['type']?>'},
 		width:720,
 	   	colNames:['Ref No.','User','Category', 'Question', 'Submittime','Status','Operation'],
 	   	colModel:[
