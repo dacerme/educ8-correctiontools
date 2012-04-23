@@ -148,7 +148,7 @@ $(function(){
 		<input type="button" onclick="insertTest()" value="Insert"/>
 
 		<div>
-			<span custom="advice:com;value:-0.1;" id="flow1">righthere<sup>COM</sup></span>
+			<span title="advice:com;value:-0.1;" id="flow1">righthere<sup>COM</sup></span>
 		</div>
 		<div id="menulist" style="width:200px;">
 			<h3><a href="#">Writing Correction</a></h3>
