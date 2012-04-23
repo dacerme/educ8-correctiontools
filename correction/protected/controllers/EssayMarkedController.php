@@ -65,21 +65,33 @@ class EssayMarkedController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new EssayMarked;
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['EssayMarked']))
-		{
-			$model->attributes=$_POST['EssayMarked'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->m_id));
+		if(isset($_POST['mid'])){
+			$model = EssayMarked::model()->findByPk($_POST['mid']);
+		}else{
+			$model=new EssayMarked;
 		}
-
-		$this->render('create',array(
-			'model'=>$model,
-		));
+		$model->markedcontent = $_POST['markcontent'];
+		$model->e_id = $_POST['eid'];
+		$model->feedback = $_POST['feedback'];
+		$model->score = intval($_POST['totalscore']);
+		$userinfo = Yii::app()->user->getState('userinfo');
+		$model->tid = $userinfo['uid'];
+		if(isset($_POST['submit'])){
+			$model->status = 2;
+			$essaystatus = 3;
+		}
+		if(isset($_POST['draft'])){
+			$model->status = 1;
+			$essaystatus = 2;
+		}
+		if($model->save()){
+			$essay = Essay::model()->findByPk($model->e_id);
+			$essay->status = $essaystatus;
+			$essay->marktime = $model->marktime;
+			if($essay->save()){
+				$this->redirect(array('site/icorrection'));
+			}
+		}
 	}
 
 	/**
@@ -227,13 +239,13 @@ class EssayMarkedController extends Controller
 				$criteria->condition='t.tid=:tid and t.status > 0';
 				break;
 			case "not":
-				$criteria = Essay::model()->count('t.tid=:tid and t.status = 1',array(':tid'=>$userinfo['uid'],'limit'=>$limit,'offset'=>$start));
+				$criteria->condition='t.tid=:tid and t.status = 1';
 				break;
 			case "rated":
-				$criteria = Essay::model()->count('t.tid=:tid and t.status = 3',array(':tid'=>$userinfo['uid'],'limit'=>$limit,'offset'=>$start));
+				$criteria->condition='t.tid=:tid and t.status = 3';
 				break;
 			case "draft":
-				$criteria = Essay::model()->count('t.tid=:tid and t.status = 2',array(':tid'=>$userinfo['uid'],'limit'=>$limit,'offset'=>$start));
+				$criteria->condition='t.tid=:tid and t.status = 2';
 				break;
 		}
 		
@@ -254,9 +266,18 @@ class EssayMarkedController extends Controller
 	public function actionMark(){
 		$type=$_GET['type'];
 		$essayid = $_GET['essayid'];
-		$essay = Essay::model()->findByPk($essayid);
-		$model = new EssayMarked;
-		$this->render('mark',array('model'=>$model,'essay'=>$essay));
+		$essay = Essay::model()->with('cate','subcate','question')->findByPk($essayid);
+		if(in_array($essay->cateid, array(1,2,3))){
+			$grade = EssayGrade::model()->findAll('category=:category',array(':category'=>$essay->subcateid));
+		}else{
+			$grade = EssayGrade::model()->findAll('category=0');
+		}
+		if($type == "new"){
+			$model = new EssayMarked;
+		}else{
+			$model = EssayMarked::model()->find('e_id=:eid',array(':eid'=>$essayid));
+		}
+		$this->render('mark',array('model'=>$model,'essay'=>$essay,'grade'=>$grade));
 	}
 	
 	

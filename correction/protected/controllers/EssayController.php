@@ -17,7 +17,10 @@ class EssayController extends Controller
 			'accessControl', // perform access control for CRUD operations
 		);
 	}
-
+	
+	private function getUser(){
+		return Yii::app()->user->getState('userinfo');
+	}
 	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.
@@ -48,10 +51,19 @@ class EssayController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
-	public function actionView($id)
+	public function actionView()
 	{
+		$essay = Essay::model()->findByPk($_GET['essayid']);	
+		$mark = EssayMarked::model()->with('essayGradescores')->find('e_id=:eid',array(':eid'=>$_GET['essayid']));
+		if(in_array($essay->cateid, array(1,2,3))){
+			$grade = EssayGrade::model()->findAll('category=:category',array(':category'=>$essay->subcateid));
+		}else{
+			$grade = EssayGrade::model()->findAll('category=0');
+		}
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$essay,
+			'mark'=>$mark,
+			'grade'=>$grade
 		));
 	}
 
@@ -72,7 +84,7 @@ class EssayController extends Controller
 			$model->status = 1;
 			$model->tid=2;
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('site/icorrection'));
 		}
 		
 		$userinfo = Yii::app()->user->getState('userinfo');
@@ -185,7 +197,70 @@ class EssayController extends Controller
 	}
 
 	public function actionGetEssay(){
+		$page = $_POST['page']; 
+		$limit = $_POST['rows']; 
+		$sidx = $_POST['sidx']==""?"submittime":$_POST['sidx']; 
+		$sord = $_POST['sord']; 
+		$type = isset($_POST['type'])?$_POST['type']:"all";
 		
+		$userinfo = $this->getUser();
 		
+		switch($type){
+			case "all":
+				$count = Essay::model()->count('t.uid=:uid',array(':uid'=>$userinfo['uid']));
+				break;
+			case "not":
+				$count = Essay::model()->count('t.uid=:uid and (t.status = 1 or t.status = 2)',array(':uid'=>$userinfo['uid']));
+				break;
+			case "rated":
+				$count = Essay::model()->count('t.uid=:uid and t.status=:status',array(':uid'=>$userinfo['uid'],':status'=>3));
+				break;
+			case "draft":
+				$count = Essay::model()->count('t.uid=:uid and t.status = 0',array(':uid'=>$userinfo['uid']));
+				break;
+		}
+		
+		if( $count >0 ) {
+			$total_pages = ceil($count/$limit);
+		} else {
+			$total_pages = 0;
+		}
+		if ($page > $total_pages){ 
+			$page=$total_pages;
+		}
+		$start = $limit*$page - $limit;
+		
+		$criteria = new CDbCriteria();
+		$criteria->order = $sidx." ".$sord;
+		$criteria->limit = $limit;
+		$criteria->offset = $start;
+		
+		switch($type){
+			case "all":
+				$criteria->condition='t.uid=:uid';
+				break;
+			case "not":
+				$criteria->condition='t.uid=:uid and (t.status = 1 or t.status = 2)';
+				break;
+			case "rated":
+				$criteria->condition='t.uid=:uid and t.status = 3';
+				break;
+			case "draft":
+				$criteria->condition='t.uid=:uid and t.status = 0';
+				break;
+		}
+		
+		$criteria->params = array(':uid'=>$userinfo['uid']);
+		$result = Essay::model()->findAll($criteria);
+		$responce->page = $page;
+		$responce->total = $total_pages;
+		$responce->records = $count;
+		foreach($result as $row){
+		    $responce->rows[]=array(
+		    	'id'=>$row->id,
+		    	'cell'=>array($row->id,$row->uid,$row->cateid,$row->customquestion,$row->submittime,$row->status)	
+			);
+		}        
+		echo json_encode($responce);
 	}
 }
