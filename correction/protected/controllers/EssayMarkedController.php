@@ -67,8 +67,10 @@ class EssayMarkedController extends Controller
 	{
 		if(isset($_POST['mid'])){
 			$model = EssayMarked::model()->findByPk($_POST['mid']);
+			$gsedit = true;
 		}else{
 			$model=new EssayMarked;
+			$gsedit = false;
 		}
 		$model->markedcontent = $_POST['markcontent'];
 		$model->e_id = $_POST['eid'];
@@ -86,10 +88,12 @@ class EssayMarkedController extends Controller
 		}
 		if($model->save()){
 			$essay = Essay::model()->findByPk($model->e_id);
-			$essay->status = $essaystatus;
-			$essay->marktime = $model->marktime;
-			if($essay->save()){
-				$this->redirect(array('site/icorrection'));
+			if($this->saveGradescore($essay,$_REQUEST,$gsedit,$model->m_id)){
+				$essay->status = $essaystatus;
+				$essay->marktime = $model->marktime;
+				if($essay->save()){
+					$this->redirect(array('site/icorrection'));
+				}
 			}
 		}
 	}
@@ -255,9 +259,11 @@ class EssayMarkedController extends Controller
 		$responce->total = $total_pages;
 		$responce->records = $count;
 		foreach($result as $row){
+			$cate = Category::model()->findByPk($row->cateid);
+			$user = User::model()->findByPk($row->uid);
 		    $responce->rows[]=array(
 		    	'id'=>$row->id,
-		    	'cell'=>array($row->id,$row->uid,$row->cateid,$row->customquestion,$row->submittime,$row->status)	
+		    	'cell'=>array($row->id,$user->username,$cate->name,$row->customquestion,$row->submittime,$this->getStatus($row->status))	
 			);
 		}        
 		echo json_encode($responce);
@@ -294,7 +300,7 @@ class EssayMarkedController extends Controller
 				'id'=>$m->a_id,
 				'label'=>$m->annotation,
 				'group'=>'ann',
-				'title'=>'caption:'.$m->caption_en.";explain:".$m->explain_en.";value:".$m->value,
+				'title'=>'caption:'.$m->caption_en.";\nexplain:".$m->explain_en.";\nvalue:".$m->value,
 				'style'=>$this->getColor($m->value)
 			);
 			if($i+1<8){
@@ -335,6 +341,34 @@ class EssayMarkedController extends Controller
 			return "background-color:#CCCCCC;";
 		}else{
 			return "background-color:green;";
+		}
+	}
+	
+	private function getStatus($status){
+		$array = array('0'=>'Draft','1'=>'Not Rated','2'=>'Marking','3'=>'Rated');
+		return $array[$status];
+	}
+	
+	private function saveGradescore($essay,$request,$edit,$mid){
+		if(in_array($essay->cateid, array(1,2,3))){
+			$grade = EssayGrade::model()->findAll('category=:category',array(':category'=>$essay->subcateid));
+		}else{
+			$grade = EssayGrade::model()->findAll('category=0');
+		}
+		if($edit){
+			$gs = EssayGradescore::model()->find('m_id=:m_id',array(':m_id'=>$mid));
+		}else{
+			$gs = new EssayGradescore;
+		}
+		foreach($grade as $g){
+			if(isset($request[$g->gradename])){
+				$name = $g->gradename;
+				$gs->$name = $request[$g->gradename];
+			}
+		}
+		$gs->m_id = $mid;
+		if($gs->save()){
+			return true;
 		}
 	}
 }

@@ -32,7 +32,7 @@ $( document ).ready( function(){
 			data:"username="+username+"&password="+password+"&rememberMe="+rememberme,
 			success:function(data){
 				if(data == "login success"){
-					window.location.reload();
+					window.location.href = baseurl+'/site/icorrection';
 				}else{
 					$('#error').html("Incorrect username or password!");
 				}

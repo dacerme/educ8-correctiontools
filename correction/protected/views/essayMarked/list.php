@@ -8,12 +8,12 @@ $(function(){
 		width:720,
 	   	colNames:['Ref No.','User','Category', 'Question', 'Submittime','Status','Operation'],
 	   	colModel:[
-	   		{name:'id',index:'id', width:40, sorttype:"int"},
-	   		{name:'uid',index:'uid', width:60, sorttype:"int"},
-	   		{name:'cate',index:'cateid', width:60, sorttype:"int"},
+	   		{name:'id',index:'id', width:30, sorttype:"int"},
+	   		{name:'uid',index:'uid', width:60},
+	   		{name:'cate',index:'cateid', width:60},
 	   		{name:'question',index:'questionid', width:150},
-	   		{name:'sumittime',index:'submittime', width:100, align:"right",sorttype:"date"},
-	   		{name:'status',index:'status', width:40, align:"right",sorttype:"int"},
+	   		{name:'sumittime',index:'submittime', width:100, align:"center",sorttype:"date"},
+	   		{name:'status',index:'status', width:50, align:"center",sorttype:"int"},
 	   		{name:'operation',index:'operation',width:60,align:"center"}
 	   	],
 	   	rowNum:15,
@@ -35,10 +35,12 @@ $(function(){
 function checkEssay(id){
 	var rowdata = $("#list").jqGrid('getRowData', id);
 	var type; 
-	if(rowdata.status == 2){
+	if(rowdata.status == 'Draft'){
 		type = "edit";
-	}else if(rowdata.status == 1){
+	}else if(rowdata.status == 'Not Rated'){
 		type = "new";
+	}else{
+		type = "edit";
 	}
 	window.location.href=baseurl+"/essaymarked/mark?essayid="+id+"&type="+type;
 }

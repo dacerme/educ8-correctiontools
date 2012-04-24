@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50017
 File Encoding         : 65001
 
-Date: 2012-04-20 17:55:54
+Date: 2012-04-24 14:48:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -71,8 +71,6 @@ CREATE TABLE `ct_essay` (
 -- ----------------------------
 -- Records of ct_essay
 -- ----------------------------
-INSERT INTO `ct_essay` VALUES ('1', '1', '<p>\r\n	<span style=\"color: rgb(0, 0, 0); font-family: Verdana, Helvetica, Arial, sans-serif; \">CWebUser represents the persistent state for a Web application user.&nbsp;</span><br style=\"color: rgb(0, 0, 0); font-family: Verdana, Helvetica, Arial, sans-serif; \" />\r\n	<br style=\"color: rgb(0, 0, 0); font-family: Verdana, Helvetica, Arial, sans-serif; \" />\r\n	<span style=\"color: rgb(0, 0, 0); font-family: Verdana, Helvetica, Arial, sans-serif; \">CWebUser is used as an application component whose ID is &#39;user&#39;. Therefore, at any place one can access the user state via&nbsp;</span><code style=\"font-size: 14px; color: rgb(0, 0, 0); background-color: rgb(222, 231, 236); \">Yii::app()-&gt;user</code><span style=\"color: rgb(0, 0, 0); font-family: Verdana, Helvetica, Arial, sans-serif; \">.&nbsp;</span><br style=\"color: rgb(0, 0, 0); font-family: Verdana, Helvetica, Arial, sans-serif; \" />\r\n	<br style=\"color: rgb(0, 0, 0); font-family: Verdana, Helvetica, Arial, sans-serif; \" />\r\n	<span style=\"color: rgb(0, 0, 0); font-family: Verdana, Helvetica, Arial, sans-serif; \">CWebUser should be used together with an&nbsp;</span><a href=\"http://api.yiibook.com/IUserIdentity\" style=\"text-decoration: none; color: rgb(51, 102, 153); font-family: Verdana, Helvetica, Arial, sans-serif; \">identity</a><span style=\"color: rgb(0, 0, 0); font-family: Verdana, Helvetica, Arial, sans-serif; \">&nbsp;which implements the actual authentication algorithm.&nbsp;</span><br style=\"color: rgb(0, 0, 0); font-family: Verdana, Helvetica, Arial, sans-serif; \" />\r\n	<br style=\"color: rgb(0, 0, 0); font-family: Verdana, Helvetica, Arial, sans-serif; \" />\r\n	<span style=\"color: rgb(0, 0, 0); font-family: Verdana, Helvetica, Arial, sans-serif; \">A typical authentication process using CWebUser is as follows:</span></p>\r\n<ol style=\"padding-right: 0px; padding-left: 0px; line-height: 1.5em; margin-top: 0.5em; margin-right: 0px; margin-bottom: 0px; margin-left: 2em; color: rgb(0, 0, 0); font-family: Verdana, Helvetica, Arial, sans-serif; \">\r\n	<li style=\"margin-bottom: 1em; \">\r\n		The user provides information needed for authentication.</li>\r\n	<li style=\"margin-bottom: 1em; \">\r\n		An&nbsp;<a href=\"http://api.yiibook.com/IUserIdentity\" style=\"text-decoration: none; color: rgb(51, 102, 153); background-color: transparent; \">identity instance</a>&nbsp;is created with the user-provided information.</li>\r\n	<li style=\"margin-bottom: 1em; \">\r\n		Call&nbsp;<a href=\"http://api.yiibook.com/IUserIdentity#authenticate\" style=\"text-decoration: none; color: rgb(51, 102, 153); background-color: transparent; \">IUserIdentity::authenticate</a>&nbsp;to check if the identity is valid.</li>\r\n	<li style=\"margin-bottom: 1em; \">\r\n		If valid, call&nbsp;<a href=\"http://api.yiibook.com/CWebUser#login\" style=\"text-decoration: none; color: rgb(51, 102, 153); background-color: transparent; \">CWebUser::login</a>&nbsp;to login the user, and Redirect the user browser to&nbsp;<a href=\"http://api.yiibook.com/CWebUser#returnUrl\" style=\"text-decoration: none; color: rgb(51, 102, 153); background-color: transparent; \">returnUrl</a>.</li>\r\n	<li style=\"margin-bottom: 1em; \">\r\n		If not valid, retrieve the error code or message from the identity instance and display it</li>\r\n</ol>\r\n', '1', 'Test Question', '0000-00-00 00:00:00', '1', '0', '2012-04-17 14:57:12', '1', '5', '2');
-
 -- ----------------------------
 -- Table structure for `ct_essay_annotation`
 -- ----------------------------
@@ -264,7 +262,6 @@ CREATE TABLE `ct_essay_gradescore` (
 -- ----------------------------
 -- Records of ct_essay_gradescore
 -- ----------------------------
-
 -- ----------------------------
 -- Table structure for `ct_essay_marked`
 -- ----------------------------
@@ -274,7 +271,7 @@ CREATE TABLE `ct_essay_marked` (
   `e_id` int(11) NOT NULL,
   `markedcontent` text NOT NULL,
   `status` tinyint(4) NOT NULL default '0',
-  `marktime` timestamp NOT NULL default '0000-00-00 00:00:00' on update CURRENT_TIMESTAMP,
+  `marktime` timestamp NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   `tid` int(11) NOT NULL,
   `feedback` text,
   `score` int(2) default NULL,
@@ -345,8 +342,9 @@ CREATE TABLE `ct_user` (
 -- ----------------------------
 -- Records of ct_user
 -- ----------------------------
-INSERT INTO `ct_user` VALUES ('1', 'mousetrapj', '84fe11482bddf055793b5081afd43fc0', 'mousetrapj@yeah.net', null, null, '1');
-INSERT INTO `ct_user` VALUES ('2', 'test', 'e10adc3949ba59abbe56e057f20f883e', 'mousetrapj@126.com', null, null, '1');
+INSERT INTO `ct_user` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'admin@correctiontools.com', null, null, '1');
+INSERT INTO `ct_user` VALUES ('2', 'teacher', 'e10adc3949ba59abbe56e057f20f883e', 'teacher@correctiontools.com', null, null, '1');
+INSERT INTO `ct_user` VALUES ('3', 'student', 'e10adc3949ba59abbe56e057f20f883e', 'student@correctiontools.com', null, null, '1');
 
 -- ----------------------------
 -- Table structure for `ct_user_plus`
@@ -367,5 +365,6 @@ CREATE TABLE `ct_user_plus` (
 -- ----------------------------
 -- Records of ct_user_plus
 -- ----------------------------
-INSERT INTO `ct_user_plus` VALUES ('1', '2', null, null, '0.00', '2012-04-10 15:07:45');
+INSERT INTO `ct_user_plus` VALUES ('1', '1', null, null, '0.00', '2012-04-10 15:07:45');
 INSERT INTO `ct_user_plus` VALUES ('2', '3', null, null, '0.00', '2012-04-13 16:01:05');
+INSERT INTO `ct_user_plus` VALUES ('3', '2', null, null, '0.00', '2012-04-13 16:01:05');

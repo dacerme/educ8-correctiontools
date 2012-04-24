@@ -1,58 +1,43 @@
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.qtip-1.0.0-rc3.min.js"></script>
 <script type="text/javascript">
 $(function(){
 	var xOffset = 10;
 	var yOffset = 20;
 	var w = $(window).width();
 	$('span[custom="ann"],span[custom="com"]').each(function(index,domEle){
-		
+		$(this).qtip({ style: { name: 'cream', tip: true } })
 		$(this).css('cursor',"pointer");
-		$(this).mouseover(function(e){
-			$("body").append("<div id='preview'><div>"+$(this).attr('title')+"</div></div>");
-			$("#preview").css({
-						position:"absolute",
-						padding:"4px",
-						border:"1px solid #f3f3f3",
-						backgroundColor:"#ffEEEE",
-						top:(e.pageY - yOffset) + "px",
-						zIndex:1000
-					});
-					$("#preview > div").css({
-						padding:"5px",
-						backgroundColor:"#cccccc",
-						border:"1px solid #cccccc"
-					});
-					if(e.pageX < w/2){
-						$("#preview").css({
-							left: e.pageX + xOffset + "px",
-							right: "auto"
-						}).fadeIn("fast");
-					}else{
-						$("#preview").css("right",(w - e.pageX + yOffset) + "px").css("left", "auto").fadeIn("fast");	
-					}
-		})
-		.mouseout(function(e){
-			$("#preview").remove();
-		})
-		.mousemove(function(e){
-			$("#preview").css("top",(e.pageY - xOffset) + "px")
-			if(e.pageX < w/2){
-				$("#preview").css("left",(e.pageX + yOffset) + "px").css("right","auto");
-			}else{
-				$("#preview").css("right",(w - e.pageX + yOffset) + "px").css("left","auto");
-			}		
-		}); 
-		
 	});
-	
 	$( "#menulist" ).accordion();
 });
 </script>
+<style>
+	b{color:darkblue;font-size:14px;}
+</style>
 <div class="form">
-	<div id="markedcontent" style="background-color:#EEEFFF">
-	    <?=$mark->markedcontent?>
-	</div>
 	<div class="row">
-		<b>Total Score:</b>&nbsp;&nbsp;<input type="text" id="totalsocre" name="totalscore" value="<?=$mark->score?>"/>
+		<b>Test Category:</b><br/> <?=$model->cate->name?>&nbsp;&nbsp;&nbsp;&nbsp;<?if($model->subcate != null)echo $model->subcate->name?>
+		<br/>
+		<br/>
+		<b>Question:</b><br/>
+		<p>
+		<?if($model->questionid > 1){?>
+			<?=$model->question->title?><br/><?=$model->question->content?>
+		<?}else{?>
+			<?=$model->customquestion?>
+		<?}?>
+		</p><br/>
+	</div>
+	<b>Content:</b><br/>
+	<div class="row">
+		<div id="markedcontent">
+		    <?if($model->status<3){echo $model->content;}else{echo $mark->markedcontent;}?>
+		</div>
+	</div>
+	<br/>
+	<?if($model->status == 3){?>
+	<div class="row">
+		<b>Total Score:</b>&nbsp;&nbsp;<?=$mark->score?>
 		<br/>
 		<table width="740">
 			<tr>
@@ -61,21 +46,23 @@ $(function(){
 				<td width="50">Score</td>
 			</tr>
 			<?foreach($grade as $g){
+				$name = $g->gradename;
 				echo "<tr>";
 				echo "<td width='200'>".$g->caption."</td>";
 				echo "<td width='440'>".$g->explain."</td>";
-					/*$criteria = new CDbCriteria();
-					$criteria->select = $g->gradename;
+					$criteria = new CDbCriteria();
+					$criteria->select = $name;
 					$criteria->condition = "m_id=:m_id";
-					$criteria->params = array(':m_id'=>$model->m_id);
-					$value = EssayGradescore::model()->find($criteria);*/
-				$value = 0;
-				echo "<td width='50'><input type='text' name='".$g->gradename."' id='".$g->gradename."' value='".$value."'/></td>";
+					$criteria->params = array(':m_id'=>$mark->m_id);
+					$value = EssayGradescore::model()->find($criteria);
+				echo "<td width='50'>".$value->$name."</td>";
 				echo "</tr>";
 			}?>
 		</table>
 	</div>
+	<br/>
 	<div class="row">
-		<label>Feedback:</label><?=$mark->feedback?>
+		<b>Feedback:</b><br/><textarea style="width:740px;height:200px;background-color:transparent;border:none;" readonly="true"><?=$mark->feedback?></textarea>
 	</div>
+	<?}?>
 </div>

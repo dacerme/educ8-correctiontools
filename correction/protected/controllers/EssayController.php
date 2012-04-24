@@ -53,18 +53,25 @@ class EssayController extends Controller
 	 */
 	public function actionView()
 	{
-		$essay = Essay::model()->findByPk($_GET['essayid']);	
-		$mark = EssayMarked::model()->with('essayGradescores')->find('e_id=:eid',array(':eid'=>$_GET['essayid']));
-		if(in_array($essay->cateid, array(1,2,3))){
-			$grade = EssayGrade::model()->findAll('category=:category',array(':category'=>$essay->subcateid));
+		$essay = Essay::model()->with('cate','subcate')->findByPk($_GET['essayid']);
+		
+		if($essay->status < 3){
+			$this->render('view',array(
+				'model'=>$essay
+			));
 		}else{
-			$grade = EssayGrade::model()->findAll('category=0');
+			$mark = EssayMarked::model()->with('essayGradescores')->find('e_id=:eid',array(':eid'=>$_GET['essayid']));
+			if(in_array($essay->cateid, array(1,2,3))){
+				$grade = EssayGrade::model()->findAll('category=:category',array(':category'=>$essay->subcateid));
+			}else{
+				$grade = EssayGrade::model()->findAll('category=0');
+			}
+			$this->render('view',array(
+				'model'=>$essay,
+				'mark'=>$mark,
+				'grade'=>$grade
+			));
 		}
-		$this->render('view',array(
-			'model'=>$essay,
-			'mark'=>$mark,
-			'grade'=>$grade
-		));
 	}
 
 	/**
@@ -80,18 +87,26 @@ class EssayController extends Controller
 
 		if(isset($_POST['Essay']))
 		{
+			if(isset($_POST['submit'])){
+				$status = 1;
+			}
+			if(isset($_POST['draft'])){
+				$status = 0;
+			}
+			
 			$model->attributes=$_POST['Essay'];
-			$model->status = 1;
+			if($_POST['Essay']['cateid'] == 11){
+				$model->subcateid = NULL;
+			}
+			$model->status = $status;
+			$model->questionid = 1;
 			$model->tid=2;
 			if($model->save())
 				$this->redirect(array('site/icorrection'));
 		}
-		
-		$userinfo = Yii::app()->user->getState('userinfo');
-
 		$this->render('create',array(
 			'model'=>$model,
-			'userinfo'=>$userinfo,
+			'userinfo'=>$this->getUser()
 		));
 	}
 
@@ -100,22 +115,30 @@ class EssayController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdate($id)
+	public function actionUpdate()
 	{
-		$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
+		$model=$this->loadModel($_GET['essayid']);
 		if(isset($_POST['Essay']))
 		{
+			if(isset($_POST['submit'])){
+				$status = 1;
+			}
+			if(isset($_POST['draft'])){
+				$status = 0;
+			}
+			
 			$model->attributes=$_POST['Essay'];
+			if($_POST['Essay']['cateid'] == 11){
+				$model->subcateid = NULL;
+			}
+			$model->status = $status;
+			$model->questionid = 1;
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('site/icorrection'));
 		}
-
 		$this->render('update',array(
 			'model'=>$model,
+			'userinfo'=>$this->getUser()
 		));
 	}
 
@@ -256,11 +279,17 @@ class EssayController extends Controller
 		$responce->total = $total_pages;
 		$responce->records = $count;
 		foreach($result as $row){
+			$cate = Category::model()->findByPk($row->cateid);
 		    $responce->rows[]=array(
 		    	'id'=>$row->id,
-		    	'cell'=>array($row->id,$row->uid,$row->cateid,$row->customquestion,$row->submittime,$row->status)	
+		    	'cell'=>array($row->id,$cate->name,$row->customquestion,$row->submittime,$this->getStatus($row->status))	
 			);
 		}        
 		echo json_encode($responce);
+	}
+
+	private function getStatus($status){
+		$array = array('0'=>'Draft','1'=>'Not Rated','2'=>'Marking','3'=>'Rated');
+		return $array[$status];
 	}
 }

@@ -147,7 +147,7 @@ CKEDITOR.plugins.add( 'annotation',
 						 });
 					     var advice = this.getContentElement("annotationbuttons","advice").getValue();
 					     var orginal = editor.getSelection().getSelectedText();
-					     var inserthtml = "<span custom='ann' ann="+ann+" title='"+title+";advice:"+advice+"'><i style='"+style+"color:white;'>"+orginal+"</i><sup style='"+style+"font-size:14px;color:white;'>"+ann+"</sup></span>";
+					     var inserthtml = "<span custom='ann' ann="+ann+" title='"+title+";\n advice:"+advice+"'><i style='"+style+"color:white;'>"+orginal+"</i><sup style='"+style+"font-size:14px;color:white;'>"+ann+"</sup></span>";
 					     editor.insertHtml(inserthtml);
 				     //}
 					}

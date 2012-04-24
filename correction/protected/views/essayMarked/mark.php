@@ -67,6 +67,7 @@ function submitmark(){
 				<td width="50">Score</td>
 			</tr>
 			<?foreach($grade as $g){
+				$name = $g->gradename;
 				echo "<tr>";
 				echo "<td width='200'>".$g->caption."</td>";
 				echo "<td width='440'>".$g->explain."</td>";
@@ -74,14 +75,15 @@ function submitmark(){
 					echo "<td width='50''>".($g->rate*100)."%</td>";
 				}
 				if($_GET['type']=="new"){
-					echo "<td width='50'><input type='text' name='".$g->gradename."' id='".$g->gradename."'/></td>";
+					echo "<td width='50'><input type='text' name='".$name."' id='".$name."'/></td>";
 				}else{
 					$criteria = new CDbCriteria();
-					$criteria->select = $g->gradename;
+					$criteria->select = $name;
 					$criteria->condition = "m_id=:m_id";
 					$criteria->params = array(':m_id'=>$model->m_id);
 					$value = EssayGradescore::model()->find($criteria);
-					echo "<td width='50'><input type='text' name='".$g->gradename."' id='".$g->gradename."' value='".$value."'/></td>";
+					
+					echo "<td width='50'><input type='text' name='".$name."' id='".$name."' value='".$value->$name."'/></td>";
 				}
 				echo "</tr>";
 			}?>
