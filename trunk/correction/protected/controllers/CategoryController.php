@@ -27,7 +27,7 @@ class CategoryController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','getcat'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -175,7 +175,7 @@ class CategoryController extends Controller
 	}
 
 	public function actionGetcat(){
-		$data=Category::model()->findAll('fid=:fid',array(':fid'=>(int) $_POST['fid']));
+		$data=Category::model()->findAll('fid=:fid',array(':fid'=>$_POST['fid']));
 		$data=CHtml::listData($data,'c_id','name');
 		foreach($data as $value=>$name)
 		{

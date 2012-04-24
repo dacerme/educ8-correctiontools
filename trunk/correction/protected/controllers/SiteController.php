@@ -100,7 +100,11 @@ class SiteController extends Controller
 		if($userinfo == null){
 			$this->redirect(Yii::app()->homeUrl);
 		}else{
-			$this->render('icorrection',array('userinfo'=>$userinfo));
+			if($userinfo['group'] != 3){
+				$this->redirect(Yii::app()->createUrl('essay/list?type=all'));
+			}else{
+				$this->redirect(Yii::app()->createUrl('essaymarked/list?type=all'));
+			}
 		}
 	}
 }
