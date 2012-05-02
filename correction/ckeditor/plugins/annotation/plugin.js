@@ -139,7 +139,7 @@ CKEDITOR.plugins.add( 'annotation',
 					 	 this.element.innerHTML = "a";
 					 }else{*/
 						 this.foreach(function(e){
-						 	    if(e.getValue()){
+						 	    if(e.getValue()&&e.type == "checkbox"){
 						 	    	ann = e.label;
 						 	    	style = e.style;
 						 	    	title = e.title;
@@ -147,7 +147,7 @@ CKEDITOR.plugins.add( 'annotation',
 						 });
 					     var advice = this.getContentElement("annotationbuttons","advice").getValue();
 					     var orginal = editor.getSelection().getSelectedText();
-					     var inserthtml = "<span custom='ann' ann="+ann+" title='"+title+";\n advice:"+advice+"'><i style='"+style+"color:white;'>"+orginal+"</i><sup style='"+style+"font-size:14px;color:white;'>"+ann+"</sup></span>";
+					     var inserthtml = "<span custom='ann' ann="+ann+" title='"+title+";\nadvice:"+advice+"'><i style='"+style+"color:white;'>"+orginal+"</i><sup style='"+style+"font-size:14px;color:white;'>"+ann+"</sup></span>";
 					     editor.insertHtml(inserthtml);
 				     //}
 					}
